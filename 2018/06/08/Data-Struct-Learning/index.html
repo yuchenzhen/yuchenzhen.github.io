@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="White">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="White">
+    <meta name="keywords" content="White 's blog | White">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Data Struct Learning · White&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon-2.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >White&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Data Struct Learning</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>White's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg2.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Data Struct Learning
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/06/08</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>线性数据结构</p>
+<p>线性表</p>
+<p>线性表的基础</p>
+<pre><code>1. 表中元素个数为线性表的长度
+
+2. 线性表没有元素时，称为空表
+
+3. 表起始位置称为表头， 表结束位置称表尾
+</code></pre><p>抽象数据类型描述：</p>
+<pre><code>类型名称：线性表（List）
+
+数据对象集：线性表是 n（&gt;= 0）个元素构成的有序序列
+
+操作集：
+
+    1. List MakeEmpty() ： 初始化一个空线性表 L
+
+    2. ElementType FindKth(int K, List L): 根据位序K， 返回相应元素
+
+    3. Int Find(ElementType X, List L):  在线性表 L 中查找 X 的第一次出现的位置
+
+    4. void Insert(ElementType X, init I, List L): 在位序 i 前插入一个新元素 X
+
+    5. void Delete(int i, List L ): 删除指定位序 i 的元素
+
+    6. init Length(List L) :返回线性表 L 的长度n
+</code></pre><p>数组 存储</p>
+<pre><code>1. 初始化
+List *MakeEmpty ()
+{
+    List *Ptrl
+       Ptrl = (List*)malloc(sizeof(List))   // 申请结构
+       Ptrl-&gt;Last = -1                        // 将尾指针指向-1, 线性表长度则为0
+       return Ptrl;
+}
+
+
+
+2. 查找 (查找 List 里面第一个元素等于 X 的位置)
+int Find(ElementType X, List *Ptrl)
+{
+    init i = 0
+    while(i&lt;=Ptrl-&gt;Last &amp;&amp; Ptrl-&gt;Data[i]!= X)
+        i++;
+       if(i&gt;Ptrl-&gt;Last) return -1 // 没找到，返回-1
+       else return i;
+}
+
+
+
+3. 插入 (第 i(1&lt;= i &lt;= n+1)个位置插入一个值为 X的新元素)
+void Insert(ElementType X, int i, List *Ptrl)
+{
+    int j;
+    if (Ptrl-&gt;Last === MAXSIZE -1 ) {
+        printf(“表满”)
+        return;
+    }
+    if (i&lt;1|| i&gt; Ptrl-&gt;Last +2) {
+        printf(“插入数据不合法”)
+        return;
+    }
+
+    for (j=Ptrl-&gt;Last; j&gt;=i-1; i--)
+        Ptrl-&gt;Data[j+1] = Ptrl-&gt;Data[j]            // 将 i 之后的每个元素都往后挪一位
+    Ptrl-&gt;Data[i]= X;                            // 将X的值付给第 i 位元素
+    Ptrl-&gt;Last++;                                // 将 Last 指向最后一位元素
+    return;
+}
+
+
+
+
+4. 删除 (删除表第i(1&lt;= i &lt;= n)个位置元素)
+void Delete(int i, List *Ptrl)
+{
+    int j;
+    if (i&lt;1 || i&gt; Ptrl-&gt;Last+1){
+        printf(&quot;不存在第%d 个元素&quot;)
+        return;
+    }
+    for (j=i; j&lt;Ptrl-&gt;Last+1; j++)
+        Ptrl-&gt;Data[j-1] = Ptrl-&gt;Data[j]
+    Ptrl-&gt;Last--;
+    return;
+}
+</code></pre><hr>
+<p>链表 存储</p>
+<pre><code>1. 求表长
+int Length (List *Ptrl)
+{
+    List *p = Ptrl;            // *p指向表的第一个结点
+    int j = 0
+    while(p){
+        p=p-&gt;Next;
+        j++
+    }
+    return j;
+}
+
+
+
+2-1. 查找：按序号查找：FindKth
+List *FindKth(int K， List *Ptrl)
+{
+    List *p = Ptrl;
+    int i = 1;
+    while(p!=NULL &amp;&amp; i&lt; K) {
+        p = p-&gt;Next;
+        i++;
+    }
+    if(i === K) return p;
+    else return NULL;
+}
+
+2-2. 查找： 按值查找:Find
+List *Find(ElementType X, List *Ptrl)
+{
+    List *p = Ptrl
+    while(p-&gt;Data != X &amp;&amp; p != NULL)
+        p=p-&gt;Next;
+    return p;
+}
+
+3. 插入 (第 i-1(1&lt;= i &lt;= n+1)个位置插入一个值为 X的新元素)
+List *Insert(ElementType X, int i, List *Ptrl)
+{
+    List *p, *s;
+    if (i==1){
+        s=(List*)malloc(sizeof(List));
+        s-&gt;Data = X;
+        s-&gt;Next = Ptrl;
+        return s;                            // 返回头指针
+    }
+    p = FindKth(i-1, Ptrl);
+    if(p==NULL) {
+        print(&quot;参数报错&quot;);
+        return NULL;
+    }else{
+        s=(List*)malloc(sizeof(List))
+        s-&gt;Data = X;
+        s-&gt;Next = p-&gt;Next;                    // s 的下个指针指向p的下个的指针
+        p-&gt;Next = s;
+        return Ptrl;                        // 返回头指针
+
+    }
+}
+
+
+
+4.删除(删除链表的第i(1&lt;=i&lt;=n)个位置上的结点)
+List *Delete(int i, List *Ptrl)
+{
+    List *p, *s;
+    if (i==1) {
+        s=Ptrl;
+        if(Ptrl!=NULL) Ptrl=Ptrl-&gt;Next;
+        else return NULL;
+        free(s);
+        return Ptrl;
+    }
+
+    p = FindKth(i-1, Ptrl)
+    if(p==NULL|| p-&gt;Next==NULL) {
+       print(&quot;不存在 删除的第%d个结点&quot;);
+       return NULL;
+    }else {
+        s=P-&gt;Next;
+        P-&gt;Next=s-&gt;Next;
+        free(s);
+        return Ptrl;
+    }
+
+}
+</code></pre><p>广义表</p>
+<p>广义表是线性表的推广</p>
+<p>堆栈</p>
+<p>栈的顺序存储结构通常有一个一位数组和一个记录栈顶元素位置的变量组成</p>
+<p>顺序存储结构</p>
+<pre><code>#define MaxSize &lt;存储数据元素的最大个数&gt;
+typeof struct {
+    ElementType Data[MaxSize];
+    int Top;
+} Stack;
+
+入栈
+void Push (Stack *PtrS, ElementType item)
+{
+    if (PtrS-&gt;Top === MaxSize-1) {
+        printf(&quot;堆栈满);
+        return;
+    } else {
+        PtrS-&gt;Data[++(PtrS-&gt;Top)] = item;
+        return;
+    }
+}
+
+出栈
+void Pop (Stack *PtrS)
+{
+    if(PtrS-&gt;Top === -1){
+        printf(&quot;堆栈空&quot;);
+        return;
+    }else{
+        return(PtrS-&gt;Data[(PtrS-&gt;Top)--]);
+    }
+}
+</code></pre><p>应用场景： 计算器</p>
+<p>两栈共享空间</p>
+<pre><code>#define MaxSize&lt;存储数据元素的最大个数&gt;
+struc DStack {
+    ElementType Data[MaxSize]l
+    int Top1;
+    int Top2;
+}S;
+S.Top1 = -1;
+S.Top2 = MaxSize
+
+入栈
+void Push(struct DStack *PtrS, ElementType item, int Tag)
+{
+    if (PtrS-&gt;Top2 - Ptrl-&gt;Top1 == 1) {
+           printf(&quot;堆栈满);
+        return;
+    }
+    if (Tag == 1)
+        Ptrs-&gt;Data[++(PtrS-&gt;Top1)] = item;
+    else
+        Ptrs-&gt;Data[--(PtrS-&gt;Top2)] = item;
+}
+
+出栈
+void Pop(struct DStack *PtrS, int Tag)
+{
+    if(Tag==1){
+        if(PtrS-&gt;Top1 == -1) {
+            printf(&quot;堆栈1空&quot;);
+            return;
+        }else{
+            return PtrlS-&gt;Data[(PtrS-&gt;Top1)--];
+        }
+    } else {
+        if(PtrS-&gt;Top2 == MaxSize) {
+            printf(&quot;堆栈2空&quot;);
+            return;
+        }else{
+            return PtrS-&gt;Data[(PtrS-&gt;Top2)++];
+        }
+    }
+}
+</code></pre><p>应用场景：股票</p>
+<p>事实上，使用这样的数据结构，通常都是当两个梢的空间需求有相反关系时，也 就是一个枝增长时另一个枝在缩短的情况。就像买卖股票一样，你买入时，一定是有 一个你不知道的人在做卖出操作. 有人赚钱，就一定是有人赔钱。这样使用两钱共享 空间存储方法才有比较大的意义 . 否则两个钱都在不停地增长，那很快就会因枝满而 溢出了。</p>
+<p>链栈</p>
+<p>堆栈的链式存储实现</p>
+<pre><code>typedef struct Node
+{
+    ElementType Data;
+    struct Node *Next;
+}LinkStack;
+LinkStack *Top;
+
+
+
+/* 构建一个堆栈的头节点，返回指针 */
+LinkStack *CreateStack()
+{
+   LinkStack *S;
+   S = (LinkStack *)malloc(sizeof(Struct Node));
+   S-&gt; Next = NULL;
+   return S;
+}
+
+/* 判断堆栈S是否为空*/
+int IsEmpty(LinkStack *S)
+{
+    return (S-&gt;Next == NULL);
+}
+
+
+
+/* PUSH */
+void Push(ElmentType item, ListStack *S)
+{
+    struct Node*TmpCell;
+    TmpCell = malloc(sizeof(struct Node));
+    TmpCell-&gt;Element = item;
+    TmpCell-&gt;Next = S-&gt;Next;
+    S-&gt;Next = TmpCell
+}
+
+
+
+/* POP */
+void Pop(ListStack *S)
+{
+    struct Node *FirstCell;
+    ElementType TopElem;
+    if (IsEmpty(S)){
+        printf(&quot;堆栈空&quot;);
+        return NULL;
+    }else{
+        FirstCell=S-&gt;Next;
+        S-&gt;Next = FirstCell-&gt;Next;
+        TopElem = FirstCell-&gt;Element;
+        free(FirstCell);
+        return TopElem;
+    }
+}
+</code></pre><p>中缀表达式求值</p>
+<p>基本策略：将中缀表达式转换为后缀表达式，然后求值</p>
+<p>方法：</p>
+<ol>
+<li>运算数相对顺序不变，</li>
+<li>运算符号顺序发生改变（括号也是运算符）<ol>
+<li>需要存储“等待中”的运算符号，(相当于堆栈)</li>
+<li>需要将当前运算符号与“等待中”的最后一个运算符号比较，“等待中”的最后一个运算符比当前运算符优先级高，则可入栈</li>
+</ol>
+</li>
+</ol>
+<p>a<em>(b+c)/d  ————&gt; abc+()</em>d/</p>
+<p>2<em>(6/3+4)-5 ————&gt;  263/4+</em>5-</p>
+<p>2<em>(9+6/3-5)+4 ————&gt; 2963/+5-</em>4+</p>
+<p>流程：</p>
+<ol>
+<li>运算数：直接输出</li>
+<li>左括号：压入堆栈</li>
+<li>右括号：将栈顶的运算符弹出并输出，直到遇到左括号（出栈，不输出）</li>
+<li>运算符：<ol>
+<li>若优先级大于栈顶运算符时，则把它压栈；</li>
+<li>若优先级小于等于栈顶运算符时，将栈顶运算符弹出并输出；再比较新的栈顶运算符，直到该运算符大于栈顶运算符优先级位置，然后将该运算符压栈；</li>
+</ol>
+</li>
+<li>若个对象处理完毕，则把堆栈中存留的运算符一并输出</li>
+</ol>
+<p>队列</p>
+<p>顺序存储结构</p>
+<pre><code>#define MaxSize &lt;存储数据元素的最大个数&gt;
+typeof struct {
+    ElementType Data[MaxSize];
+    int rear;
+    int front;
+} Queue
+
+
+
+/* 创建队列 */
+Queue *Create
+</code></pre><p>循环队列</p>
+<p>链式存储结构</p>
+<pre><code>#定义结构
+typedef struct Node {
+    ElementType Data;
+    struct Node *Next;
+}QNode;
+typedef struct {
+    QNode *rear;
+    QNode *front;
+}LinkQueue;
+LinkQueue *PtrQ;
+
+
+
+#删除操作
+ElementType DeleteQ(LinkQueue *PtrQ)
+{
+    Qnode *FrontCell;
+     ElementType FrontElem;
+
+    if (PtrQ-&gt;front == NULL){
+        print(&quot;队列空&quot;);
+        return;
+    }
+    FrontCell = PtrQ-&gt;front;
+    if (PtrQ-&gt;front == PtrQ-&gt;rear)
+        PtrQ-&gt;front = PtrQ-&gt;rear = NULL;
+    else
+        PtrQ-&gt;front = FrontCell-&gt;Next;
+    FrontElem = FrontCell-&gt;Data;
+    free(FrontCell);
+    return FrontElem;
+}
+
+
+
+#插入操作
+ElementType EnQueue(LinkQueue *PtrQ, ElementType X)
+{
+    Qnode *RearCell;
+    RearCell-&gt;Data = X;
+    RearCell-&gt;Next = NULL;
+
+    PtrQ-&gt;rear-&gt;next = RearCell;
+    PtrQ-&gt;rear=RearCell;
+    return OK;
+}
+</code></pre><p>树</p>
+<p>树的定义</p>
+<pre><code>斜二叉树
+
+完美二叉树/满二叉树
+
+完全二叉数
+</code></pre><p>几个重要的性质</p>
+<ol>
+<li>一个二叉树的第 i 层的最大结点数为：2^(i-1), i&gt;=1.</li>
+<li>深度为 k 的二叉树的最大总结点数为：2^k-1,k&gt;=1  （1+2^1+2^2+····2^k = 2^k - 1）</li>
+<li>对于任何非空二叉树 T，若n0表示叶结点的个数、n2表示度为2的非叶结点个数，那么两者满足关系n0 = n2 + 1 (叶结点：没有儿子的结点) 【证明：边数+1=结点数， n2<em>2+n1</em>1+n0*0+1 = n2+n1+n0】</li>
+</ol>
+<p>顺序存储结构</p>
+<p>完全二叉树</p>
+<p>一般二叉树</p>
+<p>链式存储</p>
+<p>遍历</p>
+<ol>
+<li><p>先序遍历</p>
+   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraversal</span><span class="params">(BinTree BT)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(BT)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>,BT-&gt;Data);</span><br><span class="line">        InOrderTraversal(BT-&gt;Left);</span><br><span class="line">        InOrderTraversal(BT-&gt;Right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用堆栈实现非递归先序遍历</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraversal</span><span class="params">(BinTree BT)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    BinTree T=BT;</span><br><span class="line">    Stack S = creatStack(MaxSize);</span><br><span class="line">    <span class="keyword">while</span>(T || !IsEmpty(S))&#123;</span><br><span class="line">        <span class="keyword">while</span>(T)&#123;</span><br><span class="line">            print(<span class="string">"%5d"</span>, T-&gt;Data);</span><br><span class="line">            Push(S,T);</span><br><span class="line">            T=T-&gt;Left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!IsEmpty(S))&#123;</span><br><span class="line">            T=Pop(S);</span><br><span class="line">            T=T-&gt;Right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中序遍历</p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraversal</span><span class="params">(BinTree BT)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(BT)&#123;</span><br><span class="line">        InOrderTraversal(BT-&gt;Left);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>,BT-&gt;Data);</span><br><span class="line">        InOrderTraversal(BT-&gt;Right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用堆栈实现非递归中序遍历</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">       <span class="function"><span class="keyword">void</span> <span class="title">InOrderTraversal</span><span class="params">(BinTree BT)</span></span></span><br><span class="line"><span class="function">       </span>&#123;</span><br><span class="line">           BinTree T=BT;</span><br><span class="line">           Stack S = creatStack(MaxSize);</span><br><span class="line">           <span class="keyword">while</span>(T || !IsEmpty(S))&#123;</span><br><span class="line">               <span class="keyword">while</span>(T)&#123;</span><br><span class="line">                   Push(S,T);</span><br><span class="line">                   T=T-&gt;Left;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span>(!IsEmpty(S))&#123;</span><br><span class="line">                   T=Pop(S);</span><br><span class="line">                   print(<span class="string">"%5d"</span>, T-&gt;Data);</span><br><span class="line">                   T=T-&gt;Right;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> 后序遍历</span><br><span class="line">    ```c</span><br><span class="line">       <span class="function"><span class="keyword">void</span> <span class="title">InOrderTraversal</span><span class="params">(BinTree BT)</span></span></span><br><span class="line"><span class="function">       </span>&#123;</span><br><span class="line">           <span class="keyword">if</span>(BT)&#123;</span><br><span class="line">               InOrderTraversal(BT-&gt;Left);</span><br><span class="line">               InOrderTraversal(BT-&gt;Right);</span><br><span class="line">               <span class="built_in">printf</span>(<span class="string">"%d"</span>,BT-&gt;Data);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p>使用堆栈实现非递归后序遍历</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraversal</span><span class="params">(BinTree BT)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    BinTree T=BT;</span><br><span class="line">    BinTree Root = BT;<span class="comment">//保存根节点地址，以用于最后打印</span></span><br><span class="line">    Stack S = creatStack(MaxSize);</span><br><span class="line">    <span class="keyword">while</span>(T || !IsEmpty(S))&#123;</span><br><span class="line">        <span class="keyword">while</span>(T)&#123;</span><br><span class="line">            Push(S,T);</span><br><span class="line">            T=T-&gt;Left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!IsEmpty(S))&#123;</span><br><span class="line">            T=Pop(S);</span><br><span class="line">            <span class="keyword">if</span> (!T-&gt;Left)</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"$d"</span>,T-&gt;Data);</span><br><span class="line">            T=T-&gt;Right;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d "</span>,Root-&gt;Data);<span class="comment">//最后打印根节点数据</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>图</p>
+<hr>
+<p>排序</p>
+<p>最大堆</p>
+<p>哈夫曼树</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="http://yuchenzhen.github.io">White</a>
+            <p>原文链接: <a href="http://yuchenzhen.github.io/2018/06/08/Data-Struct-Learning/">http://yuchenzhen.github.io/2018/06/08/Data-Struct-Learning/</a>
+            <p>发表日期: <a href="http://yuchenzhen.github.io/2018/06/08/Data-Struct-Learning/">June 8th 2018, 1:41:38</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/05/17/hexo摘要/" title= hexo摘要 >
+                    <div class="prevTitle">hexo摘要</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:hjxx066121@126.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/yuchenzhen" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/WechatIMG11.jpeg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 4 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/2018/06/08/Data-Struct-Learning/" >Data Struct Learning</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/2018/05/17/hexo摘要/" >hexo摘要</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/Git区分项目使用/" >Git区分项目使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'White'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
