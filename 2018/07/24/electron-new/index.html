@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Git区分项目使用 · White&#39;s Studio</title>
+    <title>Electron-Learning 建立一个简单的 electron 桌面应用 · White&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -207,7 +207,7 @@
                 <a href="/" >White&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Git区分项目使用</a>
+                <a href="#" class="post-name">Electron-Learning 建立一个简单的 electron 桌面应用</a>
             </div>
     </div>
     
@@ -239,7 +239,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Git区分项目使用
+            Electron-Learning 建立一个简单的 electron 桌面应用
             <!-- 404 -->
             
         </h1>
@@ -255,9 +255,15 @@ height:50vh;
         
             <!-- 文章页标签  -->
             
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "electron">electron</a>
+    
+</div>
+            
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2018/05/11</span>
+                <span class="post-intro-time">2018/07/24</span>
                 
                 <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                     <span class="iconfont-archer">&#xe602;</span>
@@ -383,16 +389,53 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>当遇到 “ERROR Deployer not found: git”</p>
-<p>解决：<br>  1 git init<br>  2 git config –local user.Name xxxx<br>    git config –local user.email xxxx<br>  3 git config –list –local</p>
+        <h1 id="用-Vue-建立一个简单的-electron-桌面应用"><a href="#用-Vue-建立一个简单的-electron-桌面应用" class="headerlink" title="用 Vue 建立一个简单的 electron 桌面应用"></a>用 Vue 建立一个简单的 electron 桌面应用</h1><h2 id="1-electron简介"><a href="#1-electron简介" class="headerlink" title="1. electron简介"></a>1. electron简介</h2><h2 id="2-工具介绍"><a href="#2-工具介绍" class="headerlink" title="2. 工具介绍"></a>2. 工具介绍</h2><h2 id="3-实践效果，步骤"><a href="#3-实践效果，步骤" class="headerlink" title="3. 实践效果，步骤"></a>3. 实践效果，步骤</h2><p>1）一个简单的 Electron 桌面应用都是冲 Hello World！ 开始的</p>
+<p><img src="/var/folders/md/f0_j98tj4nv7zp8lngt2tcwh0000gp/T/abnerworks.Typora/image-20180725234741330.png" alt="image-20180725234741330"></p>
+<p>以上是使用 electron-vue 超级迅速制作出来的 electron 桌面应用。</p>
+<p>2）安装的组件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init simulatedgreg/electron-vue white-electron-first</span><br></pre></td></tr></table></figure>
+<p><img src="/var/folders/md/f0_j98tj4nv7zp8lngt2tcwh0000gp/T/abnerworks.Typora/image-20180724235139837.png" alt="image-20180724235139837"></p>
+<p>3）build tool choice ？</p>
+<p>构建工具的选择，比较先进的是electron-builder</p>
+<p>实际上调试，开发可以直接选择 electron-builder，它支持热更新，像目前大部分在使用的 vue-cli 构建出来的项目一样保存即更新。</p>
+<p>如果是简单打包应用就直接选择 electron-packager 就好了，功能比较简单。</p>
+<p>参考链接：<a href="https://electron.org.cn/vue/building_your_app.html" target="_blank" rel="noopener">https://electron.org.cn/vue/building_your_app.html</a> </p>
+<p><img src="/var/folders/md/f0_j98tj4nv7zp8lngt2tcwh0000gp/T/abnerworks.Typora/image-20180724235404437.png" alt="image-20180724235404437"></p>
+<p>4) 下一步</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; npm i  // 装包</span><br><span class="line">&gt; npm run dev  // 测试环境运行</span><br></pre></td></tr></table></figure>
+<p>就可以有一个初步的Electron桌面应用了</p>
+<h2 id="4-如何将网站只做成-ELectron-应用？"><a href="#4-如何将网站只做成-ELectron-应用？" class="headerlink" title="4. 如何将网站只做成 ELectron 应用？"></a>4. 如何将网站只做成 ELectron 应用？</h2><p>1）网站页面 </p>
+<p><img src="/var/folders/md/f0_j98tj4nv7zp8lngt2tcwh0000gp/T/abnerworks.Typora/image-20180725235649853.png" alt="image-20180725235649853"></p>
+<p>to 桌面应用</p>
+<p><img src="/var/folders/md/f0_j98tj4nv7zp8lngt2tcwh0000gp/T/abnerworks.Typora/image-20180725235339661.png" alt="image-20180725235339661"></p>
+<p>2）熟悉 node 的朋友都知道，启动一个 node 程序，通常就是 <code>node app.js</code> 之类的</p>
+<p>把这个 Node 应用转换成一个 Electron 应用也是非常简单的，我们只不过是把 <code>node</code> 运行时替换成了 <code>electron</code>运行时。package.json如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"script"</span>: &#123;</span><br><span class="line">        <span class="attr">"electron"</span>: <span class="string">"electron build/electron.js"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Electron.js (一般启动项目写在main.js，具体看项目) 这个文件应该怎样写呢，这种基本都是参考成熟项目的，一般简单的如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// electron.js"</span></span><br><span class="line"><span class="keyword">const</span> &#123;app, BrowserWindow&#125; = <span class="built_in">require</span>(<span class="string">'electron'</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Keep a global reference of the window object, if you don't, the window will</span></span><br><span class="line">  <span class="comment">// be closed automatically when the JavaScript object is garbage collected.</span></span><br><span class="line">  <span class="keyword">let</span> win</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">createWindow</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 创建浏览器窗口。</span></span><br><span class="line">    win = <span class="keyword">new</span> BrowserWindow(&#123;<span class="attr">width</span>: <span class="number">800</span>, <span class="attr">height</span>: <span class="number">600</span>&#125;)</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 然后加载应用的 index.html。</span></span><br><span class="line">    win.loadFile(<span class="string">'index.html'</span>)</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 打开开发者工具</span></span><br><span class="line">    win.webContents.openDevTools()</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 当 window 被关闭，这个事件会被触发。</span></span><br><span class="line">    win.on(<span class="string">'closed'</span>, () =&gt; &#123;</span><br><span class="line">      <span class="comment">// 取消引用 window 对象，如果你的应用支持多窗口的话，</span></span><br><span class="line">      <span class="comment">// 通常会把多个 window 对象存放在一个数组里面，</span></span><br><span class="line">      <span class="comment">// 与此同时，你应该删除相应的元素。</span></span><br><span class="line">      win = <span class="literal">null</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Electron 会在初始化后并准备</span></span><br><span class="line">  <span class="comment">// 创建浏览器窗口时，调用这个函数。</span></span><br><span class="line">  <span class="comment">// 部分 API 在 ready 事件触发后才能使用。</span></span><br><span class="line">  app.on(<span class="string">'ready'</span>, createWindow)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 当全部窗口关闭时退出。</span></span><br><span class="line">  app.on(<span class="string">'window-all-closed'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// 在 macOS 上，除非用户用 Cmd + Q 确定地退出，</span></span><br><span class="line">    <span class="comment">// 否则绝大部分应用及其菜单栏会保持激活。</span></span><br><span class="line">    <span class="keyword">if</span> (process.platform !== <span class="string">'darwin'</span>) &#123;</span><br><span class="line">      app.quit()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  </span><br><span class="line">  app.on(<span class="string">'activate'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// 在macOS上，当单击dock图标并且没有其他窗口打开时，</span></span><br><span class="line">    <span class="comment">// 通常在应用程序中重新创建一个窗口。</span></span><br><span class="line">    <span class="keyword">if</span> (win === <span class="literal">null</span>) &#123;</span><br><span class="line">      createWindow()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 在这个文件中，你可以续写应用剩下主进程代码。</span></span><br><span class="line">  <span class="comment">// 也可以拆分成几个文件，然后用 require 导入。</span></span><br></pre></td></tr></table></figure>
+<p>上文代码中有一段<code>win.loadFile(&#39;index.html&#39;)</code>的代码，意味着你的入口页面就是 index.html, 就像我们用electron-vue 模板启动的 hello world 一样。</p>
+<p>3) 我们的 view 应用实际上就是一个 SPA 的页面，打包出来后也会有这个入口index.html 文件。</p>
+<p>于是我 <code>npm run build</code> 先 build 出 dist 文件后，electron.js 的 index.html 替换成我的 dist 目录下的 html 文件之后，出现以下问题：打包出来的 css、js 文件访问不到了。</p>
+<p><img src="/var/folders/md/f0_j98tj4nv7zp8lngt2tcwh0000gp/T/abnerworks.Typora/image-20180726223657174.png" alt="image-20180726223657174"></p>
+<p>据此文档说是可以解决的 [[<a href="https://blog.csdn.net/m0_37604745/article/details/79303342]]" target="_blank" rel="noopener">https://blog.csdn.net/m0_37604745/article/details/79303342]]</a></p>
+<p>应该是应用版本不同，我们项目用的 webpack 找不到以上配置，于是我直接改了 index.html 里面的 css，js 引用路径。</p>
+<p><img src="/var/folders/md/f0_j98tj4nv7zp8lngt2tcwh0000gp/T/abnerworks.Typora/image-20180726232617752.png" alt="image-20180726232617752"></p>
+<p>由于我们服务加载前必须先访问登陆系统，前端项目在没有配 ha 的情况下，单独的运行个静态前端项目是不行的呢。</p>
+<p>然而，</p>
+<p><em>参考资料：</em></p>
+<p><em><a href="https://www.qcode.in/convert-vue-js-app-native-desktop-app-using-electron/" target="_blank" rel="noopener">https://www.qcode.in/convert-vue-js-app-native-desktop-app-using-electron/</a></em></p>
+<p><em><a href="https://electronjs.org/docs/tutorial/first-app" target="_blank" rel="noopener">https://electronjs.org/docs/tutorial/first-app</a></em></p>
+<p>*<a href="https://newsn.net/say/electron-vue-demo-mac-builder.html——" target="_blank" rel="noopener">https://newsn.net/say/electron-vue-demo-mac-builder.html——</a> from 苏南大叔的《<a href="https://newsn.net/" target="_blank" rel="noopener">程序如此灵动~</a>》博客</p>
+<p><em><a href="https://www.jianshu.com/p/6b32763195cc" target="_blank" rel="noopener">https://www.jianshu.com/p/6b32763195cc</a></em></p>
+<p><em><a href="https://www.qcode.in/convert-vue-js-app-native-desktop-app-using-electron/" target="_blank" rel="noopener">https://www.qcode.in/convert-vue-js-app-native-desktop-app-using-electron/</a></em></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="http://yuchenzhen.github.io">White</a>
-            <p>原文链接: <a href="http://yuchenzhen.github.io/2018/05/11/Git区分项目使用/">http://yuchenzhen.github.io/2018/05/11/Git区分项目使用/</a>
-            <p>发表日期: <a href="http://yuchenzhen.github.io/2018/05/11/Git区分项目使用/">May 11th 2018, 1:03:32</a>
+            <p>原文链接: <a href="http://yuchenzhen.github.io/2018/07/24/electron-new/">http://yuchenzhen.github.io/2018/07/24/electron-new/</a>
+            <p>发表日期: <a href="http://yuchenzhen.github.io/2018/07/24/electron-new/">July 24th 2018, 11:37:30</a>
             <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -401,16 +444,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/05/17/hexo摘要/" title= hexo摘要 >
-                    <div class="nextTitle">hexo摘要</div>
+                <a href= "/2018/07/25/make-a-website-into-a-electron-application/" title= make a website into a electron application >
+                    <div class="nextTitle">make a website into a electron application</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/05/11/hello-world/" title= Hello World >
-                    <div class="prevTitle">Hello World</div>
+                <a href= "/2018/07/14/Leecode-二进制求和/" title= Leecode-二进制求和 >
+                    <div class="prevTitle">Leecode-二进制求和</div>
                 </a>
             
         </li>
@@ -518,7 +561,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#用-Vue-建立一个简单的-electron-桌面应用"><span class="toc-number">1.</span> <span class="toc-text">用 Vue 建立一个简单的 electron 桌面应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-electron简介"><span class="toc-number">1.1.</span> <span class="toc-text">1. electron简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-工具介绍"><span class="toc-number">1.2.</span> <span class="toc-text">2. 工具介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-实践效果，步骤"><span class="toc-number">1.3.</span> <span class="toc-text">3. 实践效果，步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-如何将网站只做成-ELectron-应用？"><span class="toc-number">1.4.</span> <span class="toc-text">4. 如何将网站只做成 ELectron 应用？</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
