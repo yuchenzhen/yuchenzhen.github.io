@@ -390,24 +390,24 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <h1 id="用-Vue-建立一个简单的-electron-桌面应用"><a href="#用-Vue-建立一个简单的-electron-桌面应用" class="headerlink" title="用 Vue 建立一个简单的 electron 桌面应用"></a>用 Vue 建立一个简单的 electron 桌面应用</h1><h2 id="1-electron简介"><a href="#1-electron简介" class="headerlink" title="1. electron简介"></a>1. electron简介</h2><h2 id="2-工具介绍"><a href="#2-工具介绍" class="headerlink" title="2. 工具介绍"></a>2. 工具介绍</h2><h2 id="3-实践效果，步骤"><a href="#3-实践效果，步骤" class="headerlink" title="3. 实践效果，步骤"></a>3. 实践效果，步骤</h2><p>1）一个简单的 Electron 桌面应用都是冲 Hello World！ 开始的</p>
-<p><img src="/Users/yuchenhuang/Documents/ProjectWork/white-hexo-blog/public/assets/image-20180725234741330.png" alt="image-20180725234741330"></p>
+<p><img src="/intro/image-20180725234741330.png" alt="image-20180725234741330"></p>
 <p>以上是使用 electron-vue 超级迅速制作出来的 electron 桌面应用。</p>
 <p>2）安装的组件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init simulatedgreg/electron-vue white-electron-first</span><br></pre></td></tr></table></figure>
-<p><img src="/Users/yuchenhuang/Documents/ProjectWork/white-hexo-blog/public/assets/image-20180724235139837.png" alt="image-20180724235139837"></p>
+<p><img src="/intro/image-20180724235139837.png" alt="image-20180724235139837"></p>
 <p>3）build tool choice ？</p>
 <p>构建工具的选择，比较先进的是electron-builder</p>
 <p>实际上调试，开发可以直接选择 electron-builder，它支持热更新，像目前大部分在使用的 vue-cli 构建出来的项目一样保存即更新。</p>
 <p>如果是简单打包应用就直接选择 electron-packager 就好了，功能比较简单。</p>
 <p>参考链接：<a href="https://electron.org.cn/vue/building_your_app.html" target="_blank" rel="noopener">https://electron.org.cn/vue/building_your_app.html</a> </p>
-<p><img src="/Users/yuchenhuang/Documents/ProjectWork/white-hexo-blog/public/assets/image-20180724235404437.png" alt="image-20180724235404437"></p>
+<p><img src="/intro/image-20180724235404437.png" alt="image-20180724235404437"></p>
 <p>4) 下一步</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; npm i  // 装包</span><br><span class="line">&gt; npm run dev  // 测试环境运行</span><br></pre></td></tr></table></figure>
 <p>就可以有一个初步的Electron桌面应用了</p>
 <h2 id="4-如何将网站只做成-ELectron-应用？"><a href="#4-如何将网站只做成-ELectron-应用？" class="headerlink" title="4. 如何将网站只做成 ELectron 应用？"></a>4. 如何将网站只做成 ELectron 应用？</h2><p>1）网站页面 </p>
-<p><img src="/Users/yuchenhuang/Documents/ProjectWork/white-hexo-blog/public/assets/image-20180725235649853.png" alt="image-20180725235649853"></p>
+<p><img src="/intro/image-20180725235649853.png" alt="image-20180725235649853"></p>
 <p>to 桌面应用</p>
-<p><img src="/Users/yuchenhuang/Documents/ProjectWork/white-hexo-blog/public/assets/image-20180725235339661.png" alt="image-20180725235339661"></p>
+<p><img src="/intro/image-20180725235339661.png" alt="image-20180725235339661"></p>
 <p>2）熟悉 node 的朋友都知道，启动一个 node 程序，通常就是 <code>node app.js</code> 之类的</p>
 <p>把这个 Node 应用转换成一个 Electron 应用也是非常简单的，我们只不过是把 <code>node</code> 运行时替换成了 <code>electron</code>运行时。package.json如下</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"script"</span>: &#123;</span><br><span class="line">        <span class="attr">"electron"</span>: <span class="string">"electron build/electron.js"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -416,12 +416,15 @@ height:50vh;
 <p>上文代码中有一段<code>win.loadFile(&#39;index.html&#39;)</code>的代码，意味着你的入口页面就是 index.html, 就像我们用electron-vue 模板启动的 hello world 一样。</p>
 <p>3) 我们的 view 应用实际上就是一个 SPA 的页面，打包出来后也会有这个入口index.html 文件。</p>
 <p>于是我 <code>npm run build</code> 先 build 出 dist 文件后，electron.js 的 index.html 替换成我的 dist 目录下的 html 文件之后，出现以下问题：打包出来的 css、js 文件访问不到了。</p>
-<p><img src="/Users/yuchenhuang/Documents/ProjectWork/white-hexo-blog/public/assets/image-20180726223657174.png" alt="image-20180726223657174"></p>
+<p><img src="/intro/image-20180726223657174.png" alt="image-20180726223657174"></p>
 <p>据此文档说是可以解决的 [[<a href="https://blog.csdn.net/m0_37604745/article/details/79303342]]" target="_blank" rel="noopener">https://blog.csdn.net/m0_37604745/article/details/79303342]]</a></p>
 <p>应该是应用版本不同，我们项目用的 webpack 找不到以上配置，于是我直接改了 index.html 里面的 css，js 引用路径。</p>
-<p><img src="/Users/yuchenhuang/Documents/ProjectWork/white-hexo-blog/public/assets/image-20180726232617752.png" alt="image-20180726232617752"></p>
+<p><img src="/intro/image-20180726232617752.png" alt="image-20180726232617752"></p>
 <p>由于我们服务加载前必须先访问登陆系统，前端项目在没有配 ha 的情况下，单独的运行个静态前端项目是不行的呢。</p>
-<p>然而，</p>
+<p>然而，我还是做到了。</p>
+<p>实际也比较简单：直接把这段代码改成</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 然后加载应用的 index.html。</span></span><br><span class="line">win.loadFile(<span class="string">'index.html'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// to 本地服务的地址就好了</span></span><br><span class="line"></span><br><span class="line">win.loadUrl(<span class="string">'http://localhost:4000'</span>)</span><br></pre></td></tr></table></figure>
+<p>目前这是最简单的打包一个已有应用成 electron 应该的方法。</p>
 <p><em>参考资料：</em></p>
 <p><em><a href="https://www.qcode.in/convert-vue-js-app-native-desktop-app-using-electron/" target="_blank" rel="noopener">https://www.qcode.in/convert-vue-js-app-native-desktop-app-using-electron/</a></em></p>
 <p><em><a href="https://electronjs.org/docs/tutorial/first-app" target="_blank" rel="noopener">https://electronjs.org/docs/tutorial/first-app</a></em></p>
@@ -656,12 +659,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
     <div class="total-archive"> Total : 8 </div>
     
     <div class="post-archive">
@@ -719,9 +716,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Leecode"><span class="iconfont-archer">&#xe606;</span>Leecode</span>
     
-        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
-    
         <span class="sidebar-tag-name" data-tags="electron"><span class="iconfont-archer">&#xe606;</span>electron</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
