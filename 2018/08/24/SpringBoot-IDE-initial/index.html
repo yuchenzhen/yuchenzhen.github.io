@@ -403,10 +403,9 @@ height:50vh;
 <p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1fulqoeltbij20ne0gm3z0.jpg" alt=""></p>
 <p>完成后可以看到此目录结构</p>
 <p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1fulr2pmx65j20v90j5dhh.jpg" alt=""></p>
-<h2 id="2-编写项目"><a href="#2-编写项目" class="headerlink" title="2. 编写项目"></a>2. 编写项目</h2><pre><code>可以看到com.example.demo目录下会有一个DemoApplication.java 的文件， 这个就是整个服务的入口文件。这个文件我们基本不用去碰它做任何改动。
-
-建立一个 web 服务，通常的步骤： 第一步是建立路由，第二步是写个 controller，第三步是建立 service， 第四步是 service 调用 Dao 层控制 db。
-</code></pre><h4 id="2-1-建立路由-写个-controller"><a href="#2-1-建立路由-写个-controller" class="headerlink" title="2.1 建立路由,写个 controller"></a>2.1 建立路由,写个 controller</h4><p>首先直接在 com.example.demo 目录下创建个controller 文件，java 里面 router 直接可以用注解完成，不用建立一个文件专门存 router 地址。</p>
+<h2 id="2-编写项目"><a href="#2-编写项目" class="headerlink" title="2. 编写项目"></a>2. 编写项目</h2><p>可以看到com.example.demo目录下会有一个DemoApplication.java 的文件， 这个就是整个服务的入口文件。这个文件我们基本不用去碰它做任何改动。</p>
+<p>建立一个 web 服务，通常的步骤： 第一步是建立路由，第二步是写个 controller，第三步是建立 service， 第四步是 service 调用 Dao 层控制 db。</p>
+<h4 id="2-1-建立路由-写个-controller"><a href="#2-1-建立路由-写个-controller" class="headerlink" title="2.1 建立路由,写个 controller"></a>2.1 建立路由,写个 controller</h4><p>首先直接在 com.example.demo 目录下创建个controller 文件，java 里面 router 直接可以用注解完成，不用建立一个文件专门存 router 地址。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AccountController</span></span><br><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.atomic.AtomicLong;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/api/v1"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountController</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/account"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">account</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"hello world"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这就是一个简单的 web 服务 接口。点击 IDE 的启动就可以跑起来</p>
 <p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1fv34n5pft7j21h40sltgs.jpg" alt=""></p>
@@ -725,8 +724,6 @@ top:50vh;
     
     
     
-    
-    
     <div class="total-archive"> Total : 13 </div>
     
     <div class="post-archive">
@@ -811,6 +808,8 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
     
+        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
+    
         <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
     
         <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
@@ -820,8 +819,6 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="electron"><span class="iconfont-archer">&#xe606;</span>electron</span>
     
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
-    
-        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
