@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Spring Boot 初始项目 · White&#39;s Studio</title>
+    <title>如何使用 Spring Boot 初始一个 webService 项目 · White&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -207,7 +207,7 @@
                 <a href="/" >White&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Spring Boot 初始项目</a>
+                <a href="#" class="post-name">如何使用 Spring Boot 初始一个 webService 项目</a>
             </div>
     </div>
     
@@ -239,7 +239,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Spring Boot 初始项目
+            如何使用 Spring Boot 初始一个 webService 项目
             <!-- 404 -->
             
         </h1>
@@ -389,7 +389,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="如何使用-Spring-Boot-初始项目"><a href="#如何使用-Spring-Boot-初始项目" class="headerlink" title="如何使用 Spring Boot 初始项目"></a>如何使用 Spring Boot 初始项目</h1><p>本文会练习使用IDE建立一个 mongodb 的简单 web 服务，尽量会很详细，做到初次看的也能建立成功。</p>
+        <h1 id="如何使用-Spring-Boot-初始一个-webService-项目"><a href="#如何使用-Spring-Boot-初始一个-webService-项目" class="headerlink" title="如何使用 Spring Boot 初始一个 webService 项目"></a>如何使用 Spring Boot 初始一个 webService 项目</h1><p>本文会练习使用IDE建立一个 mongodb 的简单 web 服务，尽量会很详细，做到初次看的也能建立成功。</p>
 <h2 id="1-使用-IDE"><a href="#1-使用-IDE" class="headerlink" title="1. 使用 IDE"></a>1. 使用 IDE</h2><p>Java 开发推荐使用 IDE，可以免去你很多麻烦。</p>
 <ol>
 <li>第一步，建立你的项目: File-&gt;New-&gt;Project… ，选择 Spring Initializr</li>
@@ -418,7 +418,7 @@ height:50vh;
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Acount</span></span><br><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.annotation.Id;</span><br><span class="line"><span class="comment">// import org.springframework.data.mongodb.core.index.CompoundIndex;</span></span><br><span class="line"><span class="keyword">import</span> org.springframework.data.mongodb.core.mapping.Document;</span><br><span class="line"><span class="keyword">import</span> org.bson.types.ObjectId;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Document</span>(collection = <span class="string">"account"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Account</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Id</span></span><br><span class="line">  <span class="keyword">private</span> ObjectId _id;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> String realName;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> ObjectId <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> _id;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> realName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">setName</span><span class="params">(String realName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.realName = realName;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以上就是简单的引用一个 Account Collection 的实现，</p>
 <p>最后还要在application.properties指定数据库的连接，这个文件放在 resources，一般项目的配置类参数都写在这里。</p>
-<p>如果重来没起过一个 mongodb 的话， 先去查查。</p>
+<p>如果从来没起过一个 mongodb 的话， 先去查查。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.data.mongodb.uri=mongodb://localhost:27017/test_invest</span><br></pre></td></tr></table></figure>
 <p>在引入了 db 的 collection 之后，controller 可以做更多的东西了</p>
 <p> 以下，我简单写了个获取 account 这个 collection 内所有document 的方法， 还有插入一个 account 的方法</p>
@@ -435,6 +435,7 @@ height:50vh;
 </ol>
 <p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1fv3cep6u0mj20qa0mmju2.jpg" alt=""></p>
 <p>以上就已经完整的实现了一个接口服务。</p>
+<p>项目 demo 地址：[[<a href="https://github.com/yuchenzhen/spring-boot-demo]]" target="_blank" rel="noopener">https://github.com/yuchenzhen/spring-boot-demo]]</a></p>
 
     </article>
     <!-- license  -->
@@ -568,7 +569,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何使用-Spring-Boot-初始项目"><span class="toc-number">1.</span> <span class="toc-text">如何使用 Spring Boot 初始项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-使用-IDE"><span class="toc-number">1.1.</span> <span class="toc-text">1. 使用 IDE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-编写项目"><span class="toc-number">1.2.</span> <span class="toc-text">2. 编写项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-建立路由-写个-controller"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">2.1 建立路由,写个 controller</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-建立-Dao-层"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">2.2 建立 Dao 层</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何使用-Spring-Boot-初始一个-webService-项目"><span class="toc-number">1.</span> <span class="toc-text">如何使用 Spring Boot 初始一个 webService 项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-使用-IDE"><span class="toc-number">1.1.</span> <span class="toc-text">1. 使用 IDE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-编写项目"><span class="toc-number">1.2.</span> <span class="toc-text">2. 编写项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-建立路由-写个-controller"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">2.1 建立路由,写个 controller</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-建立-Dao-层"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">2.2 建立 Dao 层</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -581,6 +582,8 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
     
     
     
@@ -753,7 +756,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/SpringBoot-IDE-initial/" >Spring Boot 初始项目</a>
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/SpringBoot-IDE-initial/" >如何使用 Spring Boot 初始一个 webService 项目</a>
         </li>
     
     
@@ -820,9 +823,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
     
-        <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
-    
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
     
         <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
