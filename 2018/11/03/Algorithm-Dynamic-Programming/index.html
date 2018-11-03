@@ -437,6 +437,13 @@ height:50vh;
 <p>​    但是这样就会有和上面斐波那契数列递归实现的同样问题， </p>
 <p>​    且其结构跟斐波那契数列的递归实现是很像的，我们可以判断其实最优子结构问题，所以尝试用动态规划来解决这个问题。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Matrix Ai has dimension p[i-1] x p[i] for i = 1..n</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">MatrixChainOrder</span><span class="params">(<span class="keyword">int</span> p[], <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">      <span class="comment">/* For simplicity of the program, one extra row and one</span></span><br><span class="line"><span class="comment">      extra column are allocated in m[][].  0th row and 0th</span></span><br><span class="line"><span class="comment">      column of m[][] are not used */</span></span><br><span class="line">      <span class="keyword">int</span> m[][] = <span class="keyword">new</span> <span class="keyword">int</span>[n][n];</span><br><span class="line"></span><br><span class="line">      <span class="keyword">int</span> i, j, k, L, q;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/* m[i,j] = Minimum number of scalar multiplications needed</span></span><br><span class="line"><span class="comment">      to compute the matrix A[i]A[i+1]...A[j] = A[i..j] where</span></span><br><span class="line"><span class="comment">      dimension of A[i] is p[i-1] x p[i] */</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// cost is zero when multiplying one matrix.</span></span><br><span class="line">      <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; n; i++)</span><br><span class="line">          m[i][i] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// L is chain length.</span></span><br><span class="line">      <span class="keyword">for</span> (L=<span class="number">2</span>; L&lt;n; L++)</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="keyword">for</span> (i=<span class="number">1</span>; i&lt;n-L+<span class="number">1</span>; i++)</span><br><span class="line">          &#123;</span><br><span class="line">              j = i+L-<span class="number">1</span>;</span><br><span class="line">              <span class="keyword">if</span>(j == n) <span class="keyword">continue</span>;</span><br><span class="line">              m[i][j] = Integer.MAX_VALUE;</span><br><span class="line">              <span class="keyword">for</span> (k=i; k&lt;=j-<span class="number">1</span>; k++)</span><br><span class="line">              &#123;</span><br><span class="line">                  <span class="comment">// q = cost/scalar multiplications</span></span><br><span class="line">                  q = m[i][k] + m[k+<span class="number">1</span>][j] + p[i-<span class="number">1</span>]*p[k]*p[j];</span><br><span class="line">                  <span class="keyword">if</span> (q &lt; m[i][j])</span><br><span class="line">                      m[i][j] = q;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> m[<span class="number">1</span>][n-<span class="number">1</span>];</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>总结</p>
+<p>​    动态规划，主要是解决递归算法的性能问题。</p>
+<pre><code>它将问题重新组合成子问题。为了避免多次解决这些子问题（带来巨大的时间复杂度开销），它们的结果都逐渐被计算并被保存，从简单的问题直到整个问题都被解决。因此，动态规划保存递归时的结果，不会在解决同样的问题时花费时间。  
+
+ 动态规划只能解决 最优子结构 问题。最优子结构 问题是指 局部最优 能决定全局最优解。简单来说就是问题能被分解成子问题解决。  
+</code></pre><p>参考资料</p>
+<p><a href="https://www.geeksforgeeks.org/matrix-chain-multiplication-dp-8/" target="_blank" rel="noopener">https://www.geeksforgeeks.org/matrix-chain-multiplication-dp-8/</a><a href="https://www.cnblogs.com/fornever/archive/2011/12/02/2270692.html" target="_blank" rel="noopener">https://www.cnblogs.com/fornever/archive/2011/12/02/2270692.html</a></p>
 <p>完）</p>
 
     </article>
@@ -798,16 +805,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-archive"> Total : 19 </div>
     
     <div class="post-archive">
@@ -932,13 +929,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Java Spring-boot"><span class="iconfont-archer">&#xe606;</span>Java Spring-boot</span>
     
-        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
-    
         <span class="sidebar-tag-name" data-tags="electron"><span class="iconfont-archer">&#xe606;</span>electron</span>
     
-        <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
