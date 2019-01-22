@@ -372,7 +372,17 @@
                     <span>红黑树学习笔记</span>
             </a>
             <div class="abstract-content">
-                红黑树学习笔记
+                红黑树学习笔记定义：红黑树比 AVL 树的性能要高，插入/删除的时间复杂度还是O(log2n) 
+五个性质：1. 节点都是红，黑；
+2. 根节点是黑色的；
+3. 叶子节点（没有左/ 右儿子的节点） 的左右儿子都是 Nil 节点，Nil 节点都是黑色的
+4. 红色节点的左右儿子都是黑色节点；
+5. 从根节点到每个 Nil 节点的黑色节点数都相同。
+难点插入操作：情形1：该树为空树，
+​    操作：直接在根节点上插入黑色节点。
+​    由于性质3和性质5，插入节点必须是红色节点，但是根节点例外。
+情形2：插入节点 N 的父节点是黑色的，
+​    操作：不违反任何规则，不需要调整，直接插...
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -963,12 +973,120 @@ for 循环原始 nums 数组，每推入一个 nums[i] 后，递归的推入大�
     
     
     
-    <div class="total-archive"> Total : 19 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 23 </div>
     
     <div class="post-archive">
     
     
     
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2019/01/21/LintCode-562.Backpack IVFollow/" >[Untitled Post]</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2019/01/20/LintCode-440. Backpack IIIFollow/" >[Untitled Post]</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2019/01/20/LintCode-91. Minimum Adjustment Cost/" >[Untitled Post]</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -1044,6 +1162,29 @@ for 循环原始 nums 数组，每推入一个 nums[i] 后，递归的推入大�
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/01/20/LintCode - Backpack IIFollow/" >[Untitled Post]</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">07/14</span><a class="archive-post-title" href= "/2018/07/14/Leetcode-一字节二字节判断/" >Leetcode-一字节二字节判断</a>
         </li>
@@ -1073,27 +1214,27 @@ for 循环原始 nums 数组，每推入一个 nums[i] 后，递归的推入大�
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
-    
-        <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
-    
-        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
-        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
         <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
     
         <span class="sidebar-tag-name" data-tags="Java Spring-boot"><span class="iconfont-archer">&#xe606;</span>Java Spring-boot</span>
     
+        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
+    
         <span class="sidebar-tag-name" data-tags="electron"><span class="iconfont-archer">&#xe606;</span>electron</span>
     
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
-        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
+        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
     
-        <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
+        <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
