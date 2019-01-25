@@ -403,6 +403,7 @@ height:50vh;
 <p> <code>F[n][m] = Math.max(F[n-1][m] ,F[n-1][m-A[n-1]] + B[n-1])</code></p>
 </li>
 </ol>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> m: An integer m denotes the size of a backpack</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> A: Given n items with size A[i]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> V: Given n items with value V[i]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: The maximum value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">backPackII</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span>[] A, <span class="keyword">int</span>[] V)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write your code here</span></span><br><span class="line">        <span class="keyword">int</span> len = A.length;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span>[][] F = <span class="keyword">new</span> <span class="keyword">int</span>[len+<span class="number">1</span>][m+<span class="number">1</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++)</span><br><span class="line">            F[<span class="number">0</span>][i] = <span class="number">0</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= m; j++) &#123;</span><br><span class="line">                F[i][j] = F[i-<span class="number">1</span>][j];</span><br><span class="line">                <span class="comment">// for (int k = 0; k &lt;= len; k++) &#123;</span></span><br><span class="line">                    </span><br><span class="line">                <span class="comment">// &#125;</span></span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (j &gt;= A[i-<span class="number">1</span>]) F[i][j] = Math.max(F[i-<span class="number">1</span>][j], F[i-<span class="number">1</span>][j - A[i-<span class="number">1</span>]] + V[i-<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> result = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= len; i++) &#123;</span><br><span class="line">            result = Math.max(F[i][m], result);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </article>
     <!-- license  -->
@@ -536,7 +537,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LinCode-Backpack-IIFollow"><span class="toc-number">1.</span> <span class="toc-text">LinCode - Backpack IIFollow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-number">1.0.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example"><span class="toc-number">1.0.2.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyst"><span class="toc-number">1.0.3.</span> <span class="toc-text">Analyst</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LinCode-Backpack-IIFollow"><span class="toc-number">1.</span> <span class="toc-text">LinCode - Backpack IIFollow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-number">1.0.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example"><span class="toc-number">1.0.2.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyst"><span class="toc-number">1.0.3.</span> <span class="toc-text">Analyst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">1.0.4.</span> <span class="toc-text">Code</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -852,7 +853,22 @@ top:50vh;
     
     
     
-    <div class="total-archive"> Total : 23 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 24 </div>
     
     <div class="post-archive">
     
@@ -861,6 +877,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/2019/01/22/LintCode-669. Coin Change/" >[Untitled Post]</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -957,29 +978,6 @@ top:50vh;
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/01/20/LintCode - Backpack IIFollow/" >[Untitled Post]</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
             <span class="archive-post-date">07/14</span><a class="archive-post-title" href= "/2018/07/14/Leetcode-一字节二字节判断/" >Leetcode-一字节二字节判断</a>
         </li>
@@ -1004,32 +1002,46 @@ top:50vh;
             <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/hello-world/" >Hello World</a>
         </li>
     
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/01/20/LintCode - Backpack IIFollow/" >[Untitled Post]</a>
+        </li>
+    
     </div>
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
-    
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
-        <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
-    
-        <span class="sidebar-tag-name" data-tags="Java Spring-boot"><span class="iconfont-archer">&#xe606;</span>Java Spring-boot</span>
-    
-        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
-    
-        <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
+        <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
     
         <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
     
+        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
+    
         <span class="sidebar-tag-name" data-tags="electron"><span class="iconfont-archer">&#xe606;</span>electron</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java Spring-boot"><span class="iconfont-archer">&#xe606;</span>Java Spring-boot</span>
     
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
-        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
+        <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
     
-        <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
+        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
