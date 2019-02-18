@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>White&#39;s Studio</title>
+    <title>LintCode-91. Minimum Adjustment Cost · White&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,6 +70,8 @@
 
     <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
         
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -191,12 +193,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >White&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">LintCode-91. Minimum Adjustment Cost</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>White's Studio.</a>
 </header>
@@ -210,24 +223,67 @@
 
 
 
+height:50vh;
+
 >
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg2.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            LintCode-91. Minimum Adjustment Cost
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "LintCode">LintCode</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/08/24</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
         
     </div>
 </div>
@@ -331,46 +387,79 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/24/SpringBoot-IDE-initial/" >
-                
-                    <span>如何使用 Spring Boot 初始一个 webService 项目</span>
-            </a>
-            <div class="abstract-content">
-                如何使用 Spring Boot 初始一个 webService 项目本文会练习使用IDE建立一个 mongodb 的简单 web 服务，尽量会很详细，做到初次看的也能建立成功。
-1. 使用 IDEJava 开发推荐使用 IDE，可以免去你很多麻烦。
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="LintCode-91-Minimum-Adjustment-Cost"><a href="#LintCode-91-Minimum-Adjustment-Cost" class="headerlink" title="LintCode-91. Minimum Adjustment Cost"></a>LintCode-91. Minimum Adjustment Cost</h1><p><a href="https://www.lintcode.com/problem/" target="_blank" rel="noopener"></a>91. Minimum Adjustment Cost</p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a><strong>Description</strong></h3><p>Given an integer array, adjust each integers so that the difference of every adjacent integers are not greater than a given number target.</p>
+<p>If the array before adjustment is <strong>A</strong>, the array after adjustment is <strong>B</strong>, you should minimize the sum of <code>|A[i]-B[i]|</code></p>
+<p>You can assume each number in the array is a positive integer and not greater than <code>100</code>.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a><strong>Example</strong></h3><p>Given <code>[1,4,2,3]</code> and target = <code>1</code>, one of the solutions is <code>[2,3,2,3]</code>, the adjustment cost is <code>2</code> and it’s minimal.</p>
+<p>Return <code>2</code>.</p>
+<h3 id="Analyst"><a href="#Analyst" class="headerlink" title="Analyst:"></a>Analyst:</h3><p>题目：对 <code>A[i]</code>进行调整, <code>A[i] -&gt; B[i]</code>，</p>
+<p>使得：</p>
+<ol>
+<li><code>| B[i] - B[i-1] |&lt;= target</code></li>
+<li><code>Sum{|A[i] - B[i]|}</code>值最小， 求最小<code>Sum{|A[i] - B[i]|}</code></li>
+</ol>
+<ol>
+<li><p>最后一步：</p>
+<p><code>F[k]</code>表示到 第<code>k-1</code>个数的总调整数 <code>result</code> 。</p>
+<p>1）需要调整，调整总和 <code>F[k] = F[k-1] + min (A[k] + target - A[k-1]  || A[k] - target - B[k-1]  )  )  ( |A[k] - B[k-1]| &gt; target )</code></p>
+<p>2) 不需要调整， <code>F[k] = F[k-1] ( |A[k] - A[k-1]| &lt;= target )</code></p>
+<p>因为这里用到调整后的<code>A[k-1]</code>,我们把 <code>A[k-1]</code>记做 <code>m</code> 保存在 <code>A[k][m]</code>上，表示每当我们走到<code>A[k-1]</code>，并且吧这个数变成了 <code>m</code></p>
+<p>因此，以上式子变成<code>F[k][m]</code>表示，走到<code>A[k-1]</code>时， 把<code>A[k-1]</code>变成 <code>m</code> 是的总调整数</p>
+<p><code>F[k][m] = min (F[k][m], F[k-1][n] + abs(A[k-1]- m))</code></p>
+</li>
+<li><p>顺序从小到大</p>
+</li>
+<li><p>初始状态, 边界情况</p>
+<p><code>F[1][j] = 0</code></p>
+</li>
+</ol>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * @param A: An integer array</span></span><br><span class="line"><span class="comment">     * @param target: An integer</span></span><br><span class="line"><span class="comment">     * @return: An integer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">MinAdjustmentCost</span><span class="params">(List&lt;Integer&gt; A, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write your code here</span></span><br><span class="line">        <span class="keyword">int</span> len = A.size();</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">int</span>[][] F = <span class="keyword">new</span> <span class="keyword">int</span>[len+<span class="number">1</span>][max+<span class="number">1</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">0</span>) </span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;=max; j++) &#123;</span><br><span class="line">                F[i][j] = Integer.MAX_VALUE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= max; i++) &#123;</span><br><span class="line">            F[<span class="number">1</span>][i] = Math.abs(i-A.get(<span class="number">0</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= len; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= max; j++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= max; k++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> ( Math.abs(k - j ) &lt;= target ) &#123;</span><br><span class="line">                        <span class="comment">// System.out.println("===================== " + " i is " + i + "  last min is " + F[i][j] + "  " +  Math.abs(A.get(i-1) - j)  + "   " + F[i-1][k] );</span></span><br><span class="line">                        <span class="comment">// System.out.println(F[i][j]);</span></span><br><span class="line">                        F[i][j] = Math.min(F[i][j], F[i-<span class="number">1</span>][k] + Math.abs(A.get(i-<span class="number">1</span>) - j) );</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> result = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= max; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (F[len][i] == <span class="number">0</span>) </span><br><span class="line">            System.out.println(<span class="string">"===================== "</span> + i );</span><br><span class="line">            result = Math.min(result, F[len][i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-第一步，建立你的项目: File-&gt;New-&gt;Project… ，选择 Spring Initializr
-
-
-默认点击 Next-&gt; 就好了
-
-选择依赖，本项目先起一个简单的 mongodb web 服务，所以选择了 web 和 mongodb 的 dependencies， 然后点击 next
-
-最后一步也点击 ne...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/24</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
+    </article>
+    <!-- license  -->
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java Spring-boot">Java Spring-boot</a>
-    
-</div>
-                
-            </div>
-        </article>
+        <div class="license-wrapper">
+            <p>原文作者: <a href="http://yuchenzhen.github.io">White</a>
+            <p>原文链接: <a href="http://yuchenzhen.github.io/2018/08/24/LintCode-91. Minimum Adjustment Cost/">http://yuchenzhen.github.io/2018/08/24/LintCode-91. Minimum Adjustment Cost/</a>
+            <p>发表日期: <a href="http://yuchenzhen.github.io/2018/08/24/LintCode-91. Minimum Adjustment Cost/">August 24th 2018, 1:22:18</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/09/07/Data-Struct-Learning-Binary-Tree/" title= Data Struct Learning-二叉树 >
+                    <div class="nextTitle">Data Struct Learning-二叉树</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/08/24/LintCode-669. Coin Change/" title= LintCode- 669. Coin ChangeFollow >
+                    <div class="prevTitle">LintCode- 669. Coin ChangeFollow</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -445,6 +534,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LintCode-91-Minimum-Adjustment-Cost"><span class="toc-number">1.</span> <span class="toc-text">LintCode-91. Minimum Adjustment Cost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-number">1.0.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example"><span class="toc-number">1.0.2.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyst"><span class="toc-number">1.0.3.</span> <span class="toc-text">Analyst:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">1.0.4.</span> <span class="toc-text">Code</span></a></li></ol></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1031,6 +1138,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
     
     </body>
 </html>

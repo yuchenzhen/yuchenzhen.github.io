@@ -351,104 +351,35 @@ height:50vh;
     
     
         <article class="index-post">
-            <a class="abstract-title" href = "/2019/01/22/LintCode-669. Coin Change/" >
+            <a class="abstract-title" href = "/2019/02/18/Array.sort涉及的算法运用/" >
                 
                     <span>[Untitled Post]</span>
             </a>
             <div class="abstract-content">
-                LintCode- 669. Coin ChangeFollowDescriptionYou are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, ret...
+                Array.sort涉及的算法运用问题1：Java的sort方法用到什么样的排序算法1.归并排序（数组类型为object对象类型）
+2.快速排序 （数组类型为原型数据类型）
+辅助的其他几种排序 （数组长度小时）
+3.冒泡排序
+问题2：为什么需要用不同种算法结合？这个涉及到算法的两个复杂度
+
+时间复杂度——用来检验某个算法处理一定量的数据要花多长时间
+空间复杂度——对一个算法在运行过程中临时占用存储空间大小的量度
+
+归并排序
+拆分阶段，将序列分为更小的序列
+
+排序阶段，把小的序列合在一起（使用合并算法）来构成更大的序列
+
+
+
+
+代码链接：
+优点：它的时间复杂度为O(nlogn)，同时是一种...
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
                 <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/22</span>
-                </div>
-                <!-- tags  -->
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2019/01/21/LintCode-562.Backpack IVFollow/" >
-                
-                    <span>[Untitled Post]</span>
-            </a>
-            <div class="abstract-content">
-                Lintcode- 562.Backpack IVFollowDescriptionGiven n items with size nums[i] which an integer array and all positive numbers, no duplicates. An integer target denotes the size of a backpack. Find the number of possible fill the backpack.
-1Each item may be chosen unlimited number of times
-Have you me...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/21</span>
-                </div>
-                <!-- tags  -->
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2019/01/20/LintCode-440. Backpack IIIFollow/" >
-                
-                    <span>[Untitled Post]</span>
-            </a>
-            <div class="abstract-content">
-                LintCode-440. Backpack IIIFollowDescriptionGiven n kind of items with size Ai and value Vi( each item has an infinite number available) and a backpack with size m. What’s the maximum value can you put into the backpack?
-You cannot divide item into small pieces and the total size of items you choo...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/20</span>
-                </div>
-                <!-- tags  -->
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2019/01/20/LintCode - Backpack IIFollow/" >
-                
-                    <span>[Untitled Post]</span>
-            </a>
-            <div class="abstract-content">
-                LinCode - Backpack IIFollowDescriptionGiven n items with size Ai and value Vi, and a backpack with size m. What’s the maximum value can you put into the backpack?
-You cannot divide item into small pieces and the total size of items you choose should smaller or equal to m.
-Have you met this questi...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/20</span>
-                </div>
-                <!-- tags  -->
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2019/01/20/LintCode-91. Minimum Adjustment Cost/" >
-                
-                    <span>[Untitled Post]</span>
-            </a>
-            <div class="abstract-content">
-                LintCode-91. Minimum Adjustment Cost91. Minimum Adjustment Cost
-DescriptionGiven an integer array, adjust each integers so that the difference of every adjacent integers are not greater than a given number target.
-If the array before adjustment is A, the array after adjustment is B, you should mi...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/20</span>
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/18</span>
                 </div>
                 <!-- tags  -->
                 
@@ -618,6 +549,117 @@ for 循环原始 nums 数组，每推入一个 nums[i] 后，递归的推入大�
                 <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "Leetcode">Leetcode</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/09/12/Leetcode-89.格雷编码/" >
+                
+                    <span>Leetcode-89.格雷编码</span>
+            </a>
+            <div class="abstract-content">
+                Leecode-89.格雷编码题目：格雷编码是一个二进制数字系统，在该系统中，两个连续的数值仅有一个位数的差异。
+给定一个代表编码总位数的非负整数 n，打印其格雷编码序列。格雷编码序列必须以 0 开头。
+示例 1:
+123456789101112131415输入: 2输出: [0,1,3,2]解释:00 - 001 - 111 - 310 - 2对于给定的 n，其格雷编码序列并不唯一。例如，[0,2,3,1] 也是一个有效的格雷编码序列。00 - 010 - 211 - 301 - 1
+示例 2:
+12345输入: 0输出: [0]解释: 我们定义格雷编码序列必须以 0 开头。     ...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/12</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Leetcode">Leetcode</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/09/07/Data-Struct-Learning-Binary-Tree/" >
+                
+                    <span>Data Struct Learning-二叉树</span>
+            </a>
+            <div class="abstract-content">
+                二叉树
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/07</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Binary_Tree">Binary_Tree</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >
+                
+                    <span>LintCode-91. Minimum Adjustment Cost</span>
+            </a>
+            <div class="abstract-content">
+                LintCode-91. Minimum Adjustment Cost91. Minimum Adjustment Cost
+DescriptionGiven an integer array, adjust each integers so that the difference of every adjacent integers are not greater than a given number target.
+If the array before adjustment is A, the array after adjustment is B, you should mi...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/24</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "LintCode">LintCode</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/08/24/LintCode-669. Coin Change/" >
+                
+                    <span>LintCode- 669. Coin ChangeFollow</span>
+            </a>
+            <div class="abstract-content">
+                LintCode- 669. Coin ChangeFollowDescriptionYou are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, ret...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/24</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "LintCode">LintCode</a>
     
 </div>
                 
@@ -1103,7 +1145,28 @@ for 循环原始 nums 数组，每推入一个 nums[i] 后，递归的推入大�
     
     
     
-    <div class="total-archive"> Total : 24 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 25 </div>
     
     <div class="post-archive">
     
@@ -1115,22 +1178,7 @@ for 循环原始 nums 数组，每推入一个 nums[i] 后，递归的推入大�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/2019/01/22/LintCode-669. Coin Change/" >[Untitled Post]</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2019/01/21/LintCode-562.Backpack IVFollow/" >[Untitled Post]</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2019/01/20/LintCode-440. Backpack IIIFollow/" >[Untitled Post]</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2019/01/20/LintCode-91. Minimum Adjustment Cost/" >[Untitled Post]</a>
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/Array.sort涉及的算法运用/" >[Untitled Post]</a>
         </li>
     
     
@@ -1180,6 +1228,31 @@ for 循环原始 nums 数组，每推入一个 nums[i] 后，递归的推入大�
     
         <li class="archive-post-item">
             <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/SpringBoot-IDE-initial/" >如何使用 Spring Boot 初始一个 webService 项目</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-562.Backpack IVFollow/" >Lintcode- 562.Backpack IVFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode - Backpack IIFollow/" >LinCode - Backpack IIFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-440. Backpack IIIFollow/" >LintCode-440. Backpack IIIFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-669. Coin Change/" >LintCode- 669. Coin ChangeFollow</a>
         </li>
     
     
@@ -1237,44 +1310,32 @@ for 循环原始 nums 数组，每推入一个 nums[i] 后，递归的推入大�
             <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/hello-world/" >Hello World</a>
         </li>
     
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2019/01/20/LintCode - Backpack IIFollow/" >[Untitled Post]</a>
-        </li>
-    
     </div>
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
-    
         <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
     
-        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
-    
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+        <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
     
         <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
+        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
+    
         <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
     
-        <span class="sidebar-tag-name" data-tags="electron"><span class="iconfont-archer">&#xe606;</span>electron</span>
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
     
-        <span class="sidebar-tag-name" data-tags="Java Spring-boot"><span class="iconfont-archer">&#xe606;</span>Java Spring-boot</span>
+        <span class="sidebar-tag-name" data-tags="LintCode"><span class="iconfont-archer">&#xe606;</span>LintCode</span>
     
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
+        <span class="sidebar-tag-name" data-tags="Java Spring-boot"><span class="iconfont-archer">&#xe606;</span>Java Spring-boot</span>
+    
         <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
+    
+        <span class="sidebar-tag-name" data-tags="electron"><span class="iconfont-archer">&#xe606;</span>electron</span>
     
         <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
     

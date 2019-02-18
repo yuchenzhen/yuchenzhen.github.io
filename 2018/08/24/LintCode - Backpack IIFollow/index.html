@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>White&#39;s Studio</title>
+    <title>LinCode - Backpack IIFollow · White&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,6 +70,8 @@
 
     <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
         
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -191,12 +193,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >White&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">LinCode - Backpack IIFollow</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>White's Studio.</a>
 </header>
@@ -210,24 +223,67 @@
 
 
 
+height:50vh;
+
 >
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg2.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            LinCode - Backpack IIFollow
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "LintCode">LintCode</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/08/24</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
         
     </div>
 </div>
@@ -331,46 +387,72 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/24/SpringBoot-IDE-initial/" >
-                
-                    <span>如何使用 Spring Boot 初始一个 webService 项目</span>
-            </a>
-            <div class="abstract-content">
-                如何使用 Spring Boot 初始一个 webService 项目本文会练习使用IDE建立一个 mongodb 的简单 web 服务，尽量会很详细，做到初次看的也能建立成功。
-1. 使用 IDEJava 开发推荐使用 IDE，可以免去你很多麻烦。
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="LinCode-Backpack-IIFollow"><a href="#LinCode-Backpack-IIFollow" class="headerlink" title="LinCode - Backpack IIFollow"></a>LinCode - Backpack IIFollow</h1><h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a><strong>Description</strong></h3><p>Given <em>n</em> items with size Ai and value Vi, and a backpack with size <em>m</em>. What’s the maximum value can you put into the backpack?</p>
+<p>You cannot divide item into small pieces and the total size of items you choose should smaller or equal to m.</p>
+<p>Have you met this question in a real interview?  Yes</p>
+<p>Problem Correction</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a><strong>Example</strong></h3><p>Given 4 items with size <code>[2, 3, 5, 7]</code> and value <code>[1, 5, 2, 4]</code>, and a backpack with size <code>10</code>. The maximum value is <code>9</code>.</p>
+<h3 id="Analyst"><a href="#Analyst" class="headerlink" title="Analyst"></a>Analyst</h3><ol>
+<li><p>最后一步</p>
+<p><code>F[n][m]</code>表示前<code>n</code>个背包放入了重量<code>m</code> 的 <code>value</code></p>
+<p>最后一个背包<code>A[n-1]</code>能被放入： <code>F[n][m] = F[n-1][m-A[n-1]] + B[n-1]</code></p>
+<p>最后一个背包<code>A[n-1]</code> 不能被放入：<code>F[n][m] = F[n-1][m]</code></p>
+</li>
+<li><p>顺序：由小到大</p>
+</li>
+<li><p>边界情况：</p>
+<p>前0个放入任意重量 <code>F[0][m] = Integer.MIN_VALUE</code></p>
+</li>
+<li><p>状态方程：</p>
+<p> <code>F[n][m] = Math.max(F[n-1][m] ,F[n-1][m-A[n-1]] + B[n-1])</code></p>
+</li>
+</ol>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> m: An integer m denotes the size of a backpack</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> A: Given n items with size A[i]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> V: Given n items with value V[i]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: The maximum value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">backPackII</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span>[] A, <span class="keyword">int</span>[] V)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write your code here</span></span><br><span class="line">        <span class="keyword">int</span> len = A.length;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span>[][] F = <span class="keyword">new</span> <span class="keyword">int</span>[len+<span class="number">1</span>][m+<span class="number">1</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++)</span><br><span class="line">            F[<span class="number">0</span>][i] = <span class="number">0</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= m; j++) &#123;</span><br><span class="line">                F[i][j] = F[i-<span class="number">1</span>][j];</span><br><span class="line">                <span class="comment">// for (int k = 0; k &lt;= len; k++) &#123;</span></span><br><span class="line">                    </span><br><span class="line">                <span class="comment">// &#125;</span></span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (j &gt;= A[i-<span class="number">1</span>]) F[i][j] = Math.max(F[i-<span class="number">1</span>][j], F[i-<span class="number">1</span>][j - A[i-<span class="number">1</span>]] + V[i-<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> result = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= len; i++) &#123;</span><br><span class="line">            result = Math.max(F[i][m], result);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-第一步，建立你的项目: File-&gt;New-&gt;Project… ，选择 Spring Initializr
-
-
-默认点击 Next-&gt; 就好了
-
-选择依赖，本项目先起一个简单的 mongodb web 服务，所以选择了 web 和 mongodb 的 dependencies， 然后点击 next
-
-最后一步也点击 ne...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/24</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
+    </article>
+    <!-- license  -->
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java Spring-boot">Java Spring-boot</a>
-    
-</div>
-                
-            </div>
-        </article>
+        <div class="license-wrapper">
+            <p>原文作者: <a href="http://yuchenzhen.github.io">White</a>
+            <p>原文链接: <a href="http://yuchenzhen.github.io/2018/08/24/LintCode - Backpack IIFollow/">http://yuchenzhen.github.io/2018/08/24/LintCode - Backpack IIFollow/</a>
+            <p>发表日期: <a href="http://yuchenzhen.github.io/2018/08/24/LintCode - Backpack IIFollow/">August 24th 2018, 1:22:18</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/08/24/LintCode-562.Backpack IVFollow/" title= Lintcode- 562.Backpack IVFollow >
+                    <div class="nextTitle">Lintcode- 562.Backpack IVFollow</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/08/24/SpringBoot-IDE-initial/" title= 如何使用 Spring Boot 初始一个 webService 项目 >
+                    <div class="prevTitle">如何使用 Spring Boot 初始一个 webService 项目</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -445,6 +527,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LinCode-Backpack-IIFollow"><span class="toc-number">1.</span> <span class="toc-text">LinCode - Backpack IIFollow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-number">1.0.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example"><span class="toc-number">1.0.2.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyst"><span class="toc-number">1.0.3.</span> <span class="toc-text">Analyst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">1.0.4.</span> <span class="toc-text">Code</span></a></li></ol></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1031,6 +1131,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
     
     </body>
 </html>
