@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="White">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="White">
+    <meta name="keywords" content="White 's blog | White">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Eggjs使用sofa-rpc-node · White&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon-2.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >White&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Eggjs使用sofa-rpc-node</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>White's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg2.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Eggjs使用sofa-rpc-node
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Node.js RPC">Node.js RPC</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2019/02/20</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="Eggjs使用sofa-rpc-node"><a href="#Eggjs使用sofa-rpc-node" class="headerlink" title="Eggjs使用sofa-rpc-node"></a>Eggjs使用sofa-rpc-node</h2><p>最近读了比较多的 rpc 资料，目前所使用的项目为 node.js 项目，于是希望能在项目中使用 rpc 。</p>
+<h4 id="RPC-（Remote-Procedure-Call）"><a href="#RPC-（Remote-Procedure-Call）" class="headerlink" title="RPC （Remote Procedure Call）"></a>RPC （Remote Procedure Call）</h4><p>RPC 即 <strong>远程过程调用</strong>，就是像调用本地的函数一样去调用远程的函数。</p>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g0edw8lklmj20hm0akn14.jpg" alt=""></p>
+<h3 id="与-HTTP-的区别？"><a href="#与-HTTP-的区别？" class="headerlink" title="与 HTTP 的区别？"></a>与 HTTP 的区别？</h3><p>其实 HTTP 也可以实现远程调用的效果，那么 HTTP 与 RPC 到底是什么关系呢？有什么区别呢？</p>
+<h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3><p>经过了解，我发现RPC 和 HTTP 其实是不在同一个层级的概念。</p>
+<p><strong>RPC 通常所讲是一个框架</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g0efy6jhkbj227k0guaku.jpg" alt=""></p>
+<p>这是阿里对 RPC 开源RPC框架sofa 的优点截图</p>
+<p>RPC 也可以基于 HTTP 实现，如上面的 GRPC ，就是 google 基于 HTTP2.0协议</p>
+<blockquote>
+<p>gRPC is a modern open source high performance RPC framework that can run in any environment. It can efficiently connect services in and across data centers with pluggable support for load balancing, tracing, health checking and authentication. It is also applicable in last mile of distributed computing to connect devices, mobile applications and browsers to backend services.</p>
+</blockquote>
+<p>RPC 也可以基于 TCP，Sockets实现</p>
+<h4 id="HTTP-HyperText-Transfer-Protocol"><a href="#HTTP-HyperText-Transfer-Protocol" class="headerlink" title="HTTP (HyperText Transfer Protocol)"></a>HTTP (<strong>H</strong>yper<strong>T</strong>ext <strong>T</strong>ransfer <strong>P</strong>rotocol)</h4><p>而 HTTP 是基于 TCP 的实现的超文本传输协议，HTTP 是无状态协议；最初用于浏览器与服务器的通信，后来广泛用于各个服务间的通信。</p>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><p><strong>RPC</strong>是<strong>远程过程调用</strong>，<strong>RPC框架</strong>可以的通信过程可以使用各种通信协议（如 <strong>HTTP</strong>，TCP以及各种自定义协议）实现。</p>
+<blockquote>
+<p>简单来说成熟的rpc库相对http容器，更多的是封装了“服务发现”，”负载均衡”，“熔断降级”一类面向服务的高级特性。可以这么理解，rpc框架是面向服务的更高级的封装。如果把一个http servlet容器上封装一层服务发现和函数代理调用，那它就已经可以做一个rpc框架了。</p>
+<p>所以为什么要用rpc调用？因为良好的rpc调用是面向服务的封装，针对服务的可用性和效率等都做了优化。单纯使用http调用则缺少了这些特性。</p>
+<p>From: <a href="https://www.zhihu.com/question/41609070/answer/191965937" target="_blank" rel="noopener">手不要乱摸</a></p>
+</blockquote>
+<hr>
+<p>查阅了一下资料 ，<a href="https://www.v2ex.com/t/483820" target="_blank" rel="noopener">nodejs有哪些比较流行的 rpc 框架?</a></p>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g0e9lhqd4pj20u70j5tgr.jpg" alt=""></p>
+<ol>
+<li>grpc —— <a href="https://grpc.io，" target="_blank" rel="noopener">https://grpc.io，</a> 这个是国外比较流行的，有 google 背书，支持多语言，听说使用的公司也比较多，看上去是比较成熟的框架。</li>
+<li>sofa —— <a href="https://tech.antfin.com/sofa" target="_blank" rel="noopener">https://tech.antfin.com/sofa</a> 这个是国内阿里开源的，目前阿里开源的 Eggjs 框架也开源了基于 sofa 的最佳实践。</li>
+<li>DUBBO —— 阿里开源的 java RPC 框架</li>
+</ol>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><p>本人基于“Eggjs 和 SOFA 的跨语言互调” 也尝试了一下 Eggjs 下的 rpc 调用</p>
+<h3 id="zookeeper"><a href="#zookeeper" class="headerlink" title="zookeeper"></a>zookeeper</h3><p>sofa-rpc-node 的 rpc 是需要 zookeeper</p>
+<p>zookeeper 是做什么的？为什么需要 zookeeper？</p>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g0ee65r6jsj20lf0bytaz.jpg" alt=""></p>
+<p>回到最初看 RPC 的原理， Client 端没有向 Server 端发起通信，而是需要Client Stub 和 Server Stub的桥接，完成 Client 和 Server 的通信；</p>
+<p>问题来了：</p>
+<ol>
+<li>Client Stub 和 Server Stub的桥接过程中如何找到对应的 Server？（<strong>服务地址储存</strong>）</li>
+<li>Server 接收到请求后，Client如何接收处理结果？（<strong>服务状态感知</strong>）</li>
+</ol>
+<p>Zookeeper 在此实现的框架上的作用就是解决上面两个问题？<a href="https://ketao1989.github.io/2016/12/10/rpc-theory-in-action/" target="_blank" rel="noopener">具体解答可以参考详情</a></p>
+<p>PS：对比起 http 服务里面，我们有一个配套的支撑基础组件叫做DNS，其根据域名找到某几个外网ip地址。然后，请求打到网站内部，一般首先到nginx群，nginx也会根据url规则找到配置好的一组ip地址，此外，nginx根据healthcheck来检查http服务是否可用。</p>
+<p>Zookeeper 在 解决服务地址储存的所做事情就如 DNS 和 nginx 一般</p>
+<p>接下来主要从  “node服务 ——&gt; Java 服务“ 和 “ Java 服务 ——&gt; node服务” （使用sofa调用）来尝试</p>
+<h4 id="一-配置"><a href="#一-配置" class="headerlink" title="一. 配置"></a>一. 配置</h4><ul>
+<li>通过 <code>egg-init</code> 初始化项目脚手架，选择 simple 模板，接下来根据实际情况填写必要信息</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> egg-init</span><br><span class="line"></span><br><span class="line">? Please select a boilerplate type (Use arrow keys)</span><br><span class="line">  ──────────────</span><br><span class="line">❯ simple - Simple egg app boilerplate</span><br><span class="line">  ts - Simple egg &amp;&amp; typescript app boilerplate</span><br><span class="line">  empty - Empty egg app boilerplate</span><br><span class="line">  plugin - egg plugin boilerplate</span><br><span class="line">  framework - egg framework boilerplate</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>进入生成好的项目目录，并安装依赖</p>
+</li>
+<li><p>安装 <code>egg-sofa-rpc</code> 插件和 <code>egg-rpc-generator</code> 工具</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> npm i egg-sofa-rpc --save</span><br><span class="line"><span class="meta">$</span> npm i egg-rpc-generator --save-dev</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置 <code>package.json</code> 的 scripts 节点，增加一个命令 <code>&quot;rpc&quot;: &quot;egg-rpc-generator&quot;</code></li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"dev"</span>: <span class="string">"egg-bin dev"</span>,</span><br><span class="line">    <span class="attr">"rpc"</span>: <span class="string">"egg-rpc-generator"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一点阿里的文档没有提到的很坑的一点，必须在<code>package.json</code>文件最外层添加，这个<code>egg-int</code>工具并不会帮建这个</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">"egg": &#123;</span><br><span class="line">    "framework": "sofa-node"</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置 <code>config/plugin.js</code> 开启 <code>egg-sofa-rpc</code> 插件</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/plugin.js</span></span><br><span class="line"></span><br><span class="line">exports.sofaRpc = &#123;</span><br><span class="line">  enable: <span class="literal">true</span>,</span><br><span class="line">  package: <span class="string">'egg-sofa-rpc'</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在<code>config/config.default.js</code> 配置<code>zookeeper</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/config.default.js</span></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line">exports.sofaRpc = &#123;</span><br><span class="line">  registry: &#123;</span><br><span class="line">    address: <span class="string">'127.0.0.1:2181'</span>, <span class="comment">// zk 地址指向本地 2181 端口</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="二-配置接口"><a href="#二-配置接口" class="headerlink" title="二. 配置接口"></a>二. 配置接口</h4><p>ProtoService.proto </p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">package com.alipay.sofa.rpc.protobuf;</span><br><span class="line">option java_multiple_files = true; // 可选</span><br><span class="line">option java_outer_classname = &quot;ProtoServiceModels&quot;; // 可选</span><br><span class="line"></span><br><span class="line">service ProtoService &#123;</span><br><span class="line">    rpc echoObj (EchoRequest) returns (EchoResponse) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message EchoRequest &#123;</span><br><span class="line">    string name = 1;</span><br><span class="line">    Group group = 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message EchoResponse &#123;</span><br><span class="line">    int32 code = 1;</span><br><span class="line">    string message = 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum Group &#123;</span><br><span class="line">    A = 0;</span><br><span class="line">    B = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这个 ProtoService.proto 文件定义了一个服务：实际上就是需要调用 Java 项目中<code>com.alipay.sofa.rpc.protobuf.ProtoService</code>，它有一个叫 <code>echoObj</code> 的方法，入口参数类型是 <code>EchoRequest</code>，返回值类型是 <code>EchoResponse</code>。</p>
+<h3 id="protobuf"><a href="#protobuf" class="headerlink" title="protobuf"></a>protobuf</h3><p>protobuf 是什么？</p>
+<blockquote>
+<p>Protocol Buffers 是一种轻便高效的结构化数据存储格式，可以用于结构化数据串行化，或者说序列化。它很适合做数据存储或 RPC 数据交换格式。可用于通讯协议、数据存储等领域的语言无关、平台无关、可扩展的序列化结构数据格式。目前提供了 C++、Java、Python 三种语言的 API</p>
+</blockquote>
+<p>用于序列化</p>
+<ul>
+<li>在 <code>config/proxy.js</code> 中配置要调用的服务信息</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  services: [&#123;</span><br><span class="line">    appName: <span class="string">'sofarpc'</span>,</span><br><span class="line">    api: &#123;</span><br><span class="line">      ProtoService: <span class="string">'com.alipay.sofa.rpc.protobuf.ProtoService'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在根目录下运行 <code>npm run rpc</code>，生成调用的 proxy 文</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ npm run rpc</span><br><span class="line"></span><br><span class="line">&gt; rpc-demo@1.0.0 rpc /egg-rpc-demo</span><br><span class="line">&gt; egg-rpc-generator</span><br><span class="line"></span><br><span class="line">[EggRpcGenerator] framework: /egg-rpc-demo/node_modules/egg, baseDir: /egg-rpc-demo</span><br><span class="line">[ProtoRPCPlugin] found <span class="string">"com.alipay.sofa.rpc.protobuf.ProtoService"</span> <span class="keyword">in</span> proto file</span><br><span class="line">[ProtoRPCPlugin] save all proto info into <span class="string">"/egg-rpc-demo/run/proto.json"</span></span><br></pre></td></tr></table></figure>
+<h3 id="Egg-sofa-generator"><a href="#Egg-sofa-generator" class="headerlink" title="Egg-sofa-generator"></a>Egg-sofa-generator</h3><p>这个东西做了什么？</p>
+<p>实际上就是生成了<code>app/proxy/ProtoService.js</code> - 调用服务的代理文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Don't modified this file, it's auto created by egg-rpc-generator</span></span><br><span class="line"></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable */</span></span><br><span class="line"><span class="comment">/* istanbul ignore next */</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> consumer = app.sofaRpcClient.createConsumer(&#123;</span><br><span class="line">    interfaceName: <span class="string">'com.alipay.sofa.rpc.protobuf.ProtoService'</span>,</span><br><span class="line">    targetAppName: <span class="string">'sofarpc'</span>,</span><br><span class="line">    version: <span class="string">'1.0'</span>,</span><br><span class="line">    group: <span class="string">'SOFA'</span>,</span><br><span class="line">    proxyName: <span class="string">'ProtoService'</span>,</span><br><span class="line">    responseTimeout: <span class="number">3000</span>,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!consumer) &#123;</span><br><span class="line">    <span class="comment">// `app.config['sofarpc.rpc.service.enable'] = false` will disable this consumer</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  app.beforeStart(<span class="keyword">async</span>() =&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> consumer.ready();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">ProtoService</span> <span class="keyword">extends</span> <span class="title">app</span>.<span class="title">Proxy</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(ctx) &#123;</span><br><span class="line">      <span class="keyword">super</span>(ctx, consumer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> echoObj(req) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">await</span> consumer.invoke(<span class="string">'echoObj'</span>, [ req ], &#123; </span><br><span class="line">        ctx: <span class="keyword">this</span>.ctx,</span><br><span class="line">    codecType: <span class="string">'protobuf'</span>,                        </span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ProtoService;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/* eslint-enable */</span></span><br></pre></td></tr></table></figure>
+<h4 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h4><ul>
+<li>在路由里通过 ctx.proxy去调用该方法就好</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app/controller/home.js</span></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Controller = <span class="built_in">require</span>(<span class="string">'egg'</span>).Controller;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> <span class="keyword">extends</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">  <span class="keyword">async</span> index() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; ctx &#125; = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> ctx.proxy.protoService.echoObj(&#123;</span><br><span class="line">      name: <span class="string">'gxcsoccer'</span>,</span><br><span class="line">    group: <span class="string">'A'</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">    ctx.body = res;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = HomeController;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+<p>调试结果 调用接口</p>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g0efo6xc6dj20ro0b8myc.jpg" alt=""></p>
+<h3 id="Nodejs-暴露-RPC-服务给-Java-调用"><a href="#Nodejs-暴露-RPC-服务给-Java-调用" class="headerlink" title="Nodejs 暴露 RPC 服务给 Java 调用"></a>Nodejs 暴露 RPC 服务给 Java 调用</h3><p><a href="https://www.yuque.com/egg/nodejs/cpn3uo" target="_blank" rel="noopener">Eggjs 和 SOFA 的跨语言互调 教程详情</a></p>
+<p>这个可以自己去尝试下，目前不在此介绍</p>
+<p>### </p>
+<p>参考资料：</p>
+<p><a href="https://www.yuque.com/egg/nodejs/cpn3uo" target="_blank" rel="noopener">Eggjs 和 SOFA 的跨语言互调</a></p>
+<p><a href="https://www.v2ex.com/t/483820" target="_blank" rel="noopener">nodejs有哪些比较流行的 rpc 框架?</a></p>
+<p><a href="https://ketao1989.github.io/2016/12/10/rpc-theory-in-action/" target="_blank" rel="noopener">深入浅出RPC原理</a></p>
+<p><a href="https://www.zhihu.com/question/41609070/answer/191965937" target="_blank" rel="noopener">既然有 HTTP 请求，为什么还要用 RPC 调用？</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/28414262" target="_blank" rel="noopener">分布式架构核心RPC原理</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/29857744" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/29857744</a></p>
+<h4 id="End"><a href="#End" class="headerlink" title="End :)"></a>End :)</h4>
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="http://yuchenzhen.github.io">White</a>
+            <p>原文链接: <a href="http://yuchenzhen.github.io/2019/02/20/Eggjs使用sofa-rpc-node/">http://yuchenzhen.github.io/2019/02/20/Eggjs使用sofa-rpc-node/</a>
+            <p>发表日期: <a href="http://yuchenzhen.github.io/2019/02/20/Eggjs使用sofa-rpc-node/">February 20th 2019, 11:16:22</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/02/18/java项目设计思路/" title= Java项目设计思路 >
+                    <div class="prevTitle">Java项目设计思路</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:hjxx066121@126.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/yuchenzhen" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/WechatIMG11.jpeg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Eggjs使用sofa-rpc-node"><span class="toc-number">1.</span> <span class="toc-text">Eggjs使用sofa-rpc-node</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RPC-（Remote-Procedure-Call）"><span class="toc-number">1.0.1.</span> <span class="toc-text">RPC （Remote Procedure Call）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与-HTTP-的区别？"><span class="toc-number">1.1.</span> <span class="toc-text">与 HTTP 的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RPC"><span class="toc-number">1.2.</span> <span class="toc-text">RPC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP-HyperText-Transfer-Protocol"><span class="toc-number">1.2.1.</span> <span class="toc-text">HTTP (HyperText Transfer Protocol)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#区别"><span class="toc-number">1.2.2.</span> <span class="toc-text">区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实践"><span class="toc-number">2.</span> <span class="toc-text">实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zookeeper"><span class="toc-number">2.1.</span> <span class="toc-text">zookeeper</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一-配置"><span class="toc-number">2.1.1.</span> <span class="toc-text">一. 配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二-配置接口"><span class="toc-number">2.1.2.</span> <span class="toc-text">二. 配置接口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#protobuf"><span class="toc-number">2.2.</span> <span class="toc-text">protobuf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Egg-sofa-generator"><span class="toc-number">2.3.</span> <span class="toc-text">Egg-sofa-generator</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#调用"><span class="toc-number">2.3.1.</span> <span class="toc-text">调用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nodejs-暴露-RPC-服务给-Java-调用"><span class="toc-number">2.4.</span> <span class="toc-text">Nodejs 暴露 RPC 服务给 Java 调用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#End"><span class="toc-number">2.4.1.</span> <span class="toc-text">End :)</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 27 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span><a class="archive-post-title" href= "/2019/02/20/Eggjs使用sofa-rpc-node/" >Eggjs使用sofa-rpc-node</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/java项目设计思路/" >Java项目设计思路</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/Array.sort涉及的算法运用/" >[Untitled Post]</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/Algorithm-Dynamic-Programming/" >Algorithm Dynamic Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/15</span><a class="archive-post-title" href= "/2018/10/15/红黑树学习笔记/" >红黑树学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/28</span><a class="archive-post-title" href= "/2018/09/28/找不出合格品/" >找出不合格品</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/2018/09/23/Leetcode-46-全排列/" >Leetcode-46.全排列</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/17</span><a class="archive-post-title" href= "/2018/09/17/Leetcode-23.合并k个排序链表/" >Leetcode-23.合并k个排序链表</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/12</span><a class="archive-post-title" href= "/2018/09/12/Leetcode-89.格雷编码/" >Leetcode-89.格雷编码</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/07</span><a class="archive-post-title" href= "/2018/09/07/Data-Struct-Learning-Binary-Tree/" >Data Struct Learning-二叉树</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode - Backpack IIFollow/" >LinCode - Backpack IIFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/SpringBoot-IDE-initial/" >如何使用 Spring Boot 初始一个 webService 项目</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-669. Coin Change/" >LintCode- 669. Coin ChangeFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-440. Backpack IIIFollow/" >LintCode-440. Backpack IIIFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-562.Backpack IVFollow/" >Lintcode- 562.Backpack IVFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2018/08/09/Leetcode-亲密字符串/" >Leetcode-亲密字符串</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/Leetcode-二进制间距/" >Leetcode-二进制间距</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/simplifyPath/" >unix简化路径</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2018/07/25/A-vue-upload-component-info/" >A vue upload component info</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href= "/2018/07/24/electron-new/" >Electron-Learning 建立一个简单的 electron 桌面应用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span><a class="archive-post-title" href= "/2018/07/14/Leetcode-二进制求和/" >Leetcode-二进制求和</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span><a class="archive-post-title" href= "/2018/07/14/Leetcode-一字节二字节判断/" >Leetcode-一字节二字节判断</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/2018/06/08/Data-Struct-Learning/" >Data Struct Learning-线性数据结构</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/2018/05/17/hexo摘要/" >hexo摘要</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/Git区分项目使用/" >Git区分项目使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
+    
+        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
+    
+        <span class="sidebar-tag-name" data-tags="Node.js RPC"><span class="iconfont-archer">&#xe606;</span>Node.js RPC</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="LintCode"><span class="iconfont-archer">&#xe606;</span>LintCode</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java Spring-boot"><span class="iconfont-archer">&#xe606;</span>Java Spring-boot</span>
+    
+        <span class="sidebar-tag-name" data-tags="electron"><span class="iconfont-archer">&#xe606;</span>electron</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
+    
+        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'White'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+

@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>White&#39;s Studio</title>
+    <title>Java项目设计思路 · White&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,6 +70,8 @@
 
     <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
         
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -191,12 +193,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >White&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Java项目设计思路</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>White's Studio.</a>
 </header>
@@ -210,24 +223,67 @@
 
 
 
+height:50vh;
+
 >
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg2.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            Java项目设计思路
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2019/02/18</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
         
     </div>
 </div>
@@ -331,251 +387,64 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="一个实际项目-Java-架构设计"><a href="#一个实际项目-Java-架构设计" class="headerlink" title="一个实际项目 Java 架构设计"></a>一个实际项目 Java 架构设计</h2><h3 id="1-总体架构模块图"><a href="#1-总体架构模块图" class="headerlink" title="1 总体架构模块图"></a>1 总体架构模块图</h3><h4 id="1-1-抽象架构模块图"><a href="#1-1-抽象架构模块图" class="headerlink" title="1.1 抽象架构模块图"></a>1.1 抽象架构模块图</h4><h4 id="1-2-具体技术架构模块图"><a href="#1-2-具体技术架构模块图" class="headerlink" title="1.2 具体技术架构模块图"></a>1.2 具体技术架构模块图</h4><h3 id="2-技术方案"><a href="#2-技术方案" class="headerlink" title="2 技术方案"></a>2 技术方案</h3><h4 id="2-1-controller-方案"><a href="#2-1-controller-方案" class="headerlink" title="2.1 controller 方案"></a>2.1 controller 方案</h4><p>在常用的控制层技术中，有struct1，struct2，springMVC等。</p>
+<p>1)       struct1：比较早的一个控制层框架，非线程安全，现在很少使用。</p>
+<p>2)       struct2：较为成熟并应用非常广泛的框架，即经典的SSH，比较热门</p>
+<p>3)       springMVC：后起之秀，目前最有前景的技术，以下列出与struct2主要对比项：</p>
+<h4 id="2-2-modoule-层"><a href="#2-2-modoule-层" class="headerlink" title="2.2 modoule 层"></a>2.2 modoule 层</h4><p>开源 ORM 组件 </p>
+<p>l  Hibernate学习门槛比较高，限制对象模型，在多表、复杂查询下，优化难度较高。对于后期的维护或者重构来说，难度较大。</p>
+<p>l  MyBatis属于半ORM框架，可以对sql做到精细控制，但是开发效率来讲，比hibernate相对慢些，但是利于后期的维护于重构。</p>
+<p>从灵活性、可控性、学习成本和本人熟悉程度考虑，配合使用codeSmith代码生器能大幅提高开发效率，建议采用MyBatis，作为项目的ORM框架。</p>
+<p>| JDBC 框架</p>
+<h4 id="2-3-DB-层"><a href="#2-3-DB-层" class="headerlink" title="2.3 DB 层"></a>2.3 DB 层</h4><ol>
+<li>MySql </li>
+<li>Mongo</li>
+</ol>
+<h4 id="2-4"><a href="#2-4" class="headerlink" title="2.4"></a>2.4</h4><h3 id="3-通用模块、组件"><a href="#3-通用模块、组件" class="headerlink" title="3. 通用模块、组件"></a>3. 通用模块、组件</h3>
+    </article>
+    <!-- license  -->
     
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/24/SpringBoot-IDE-initial/" >
-                
-                    <span>如何使用 Spring Boot 初始一个 webService 项目</span>
-            </a>
-            <div class="abstract-content">
-                如何使用 Spring Boot 初始一个 webService 项目本文会练习使用IDE建立一个 mongodb 的简单 web 服务，尽量会很详细，做到初次看的也能建立成功。
-1. 使用 IDEJava 开发推荐使用 IDE，可以免去你很多麻烦。
-
-第一步，建立你的项目: File-&gt;New-&gt;Project… ，选择 Spring Initializr
-
-
-默认点击 Next-&gt; 就好了
-
-选择依赖，本项目先起一个简单的 mongodb web 服务，所以选择了 web 和 mongodb 的 dependencies， 然后点击 next
-
-最后一步也点击 ne...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/24</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java Spring-boot">Java Spring-boot</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/24/LintCode-669. Coin Change/" >
-                
-                    <span>LintCode- 669. Coin ChangeFollow</span>
-            </a>
-            <div class="abstract-content">
-                LintCode- 669. Coin ChangeFollowDescriptionYou are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, ret...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/24</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "LintCode">LintCode</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >
-                
-                    <span>LintCode-91. Minimum Adjustment Cost</span>
-            </a>
-            <div class="abstract-content">
-                LintCode-91. Minimum Adjustment Cost91. Minimum Adjustment Cost
-DescriptionGiven an integer array, adjust each integers so that the difference of every adjacent integers are not greater than a given number target.
-If the array before adjustment is A, the array after adjustment is B, you should mi...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/24</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "LintCode">LintCode</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/24/LintCode - Backpack IIFollow/" >
-                
-                    <span>LinCode - Backpack IIFollow</span>
-            </a>
-            <div class="abstract-content">
-                LinCode - Backpack IIFollowDescriptionGiven n items with size Ai and value Vi, and a backpack with size m. What’s the maximum value can you put into the backpack?
-You cannot divide item into small pieces and the total size of items you choose should smaller or equal to m.
-Have you met this questi...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/24</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "LintCode">LintCode</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/24/LintCode-562.Backpack IVFollow/" >
-                
-                    <span>Lintcode- 562.Backpack IVFollow</span>
-            </a>
-            <div class="abstract-content">
-                Lintcode- 562.Backpack IVFollowDescriptionGiven n items with size nums[i] which an integer array and all positive numbers, no duplicates. An integer target denotes the size of a backpack. Find the number of possible fill the backpack.
-1Each item may be chosen unlimited number of times
-Have you me...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/24</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "LintCode">LintCode</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/24/LintCode-440. Backpack IIIFollow/" >
-                
-                    <span>LintCode-440. Backpack IIIFollow</span>
-            </a>
-            <div class="abstract-content">
-                LintCode-440. Backpack IIIFollowDescriptionGiven n kind of items with size Ai and value Vi( each item has an infinite number available) and a backpack with size m. What’s the maximum value can you put into the backpack?
-You cannot divide item into small pieces and the total size of items you choo...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/24</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "LintCode">LintCode</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/09/Leetcode-亲密字符串/" >
-                
-                    <span>Leetcode-亲密字符串</span>
-            </a>
-            <div class="abstract-content">
-                亲密字符串题目：给定两个由小写字母构成的字符串 A 和 B ，只要我们可以通过交换 A 中的两个字母得到与 B 相等的结果，就返回 true ；否则返回 false 。
-示例 1：
-12输入： A = &quot;ab&quot;, B = &quot;ba&quot;输出： true
-示例 2：
-12输入： A = &quot;ab&quot;, B = &quot;ab&quot;输出： false
-示例 3:
-12输入： A = &quot;aa&quot;, B = &quot;aa&quot;输出： true
-示例 4：
-12输入： A = &quot;aaaaaaabc&qu...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/09</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Leetcode">Leetcode</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/05/Leetcode-二进制间距/" >
-                
-                    <span>Leetcode-二进制间距</span>
-            </a>
-            <div class="abstract-content">
-                Leedcode-二进制间距在 leedcode 里做了一道题， 题目是这样的
-给定一个正整数 N，找到并返回 N 的二进制表示中两个连续的 1 之间的最长距离。 
-如果没有两个连续的 1，返回 0 。
-示例 1：
-12345678输入：22输出：2解释：22 的二进制是 0b10110 。在 22 的二进制表示中，有三个 1，组成两对连续的 1 。第一对连续的 1 中，两个 1 之间的距离为 2 。第二对连续的 1 中，两个 1 之间的距离为 1 。答案取两个距离之中最大的，也就是 2 。
-示例 2：
-1234输入：5输出：2解释：5 的二进制是 0b101 。
-示例 3：
-1234输...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/05</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Leetcode">Leetcode</a>
-    
-</div>
-                
-            </div>
-        </article>
+        <div class="license-wrapper">
+            <p>原文作者: <a href="http://yuchenzhen.github.io">White</a>
+            <p>原文链接: <a href="http://yuchenzhen.github.io/2019/02/18/java项目设计思路/">http://yuchenzhen.github.io/2019/02/18/java项目设计思路/</a>
+            <p>发表日期: <a href="http://yuchenzhen.github.io/2019/02/18/java项目设计思路/">February 18th 2019, 10:23:35</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/02/20/Eggjs使用sofa-rpc-node/" title= Eggjs使用sofa-rpc-node >
+                    <div class="nextTitle">Eggjs使用sofa-rpc-node</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/02/18/Array.sort涉及的算法运用/" title=  >
+                    <div class="prevTitle">[Untitled Post]</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -650,6 +519,24 @@ You cannot divide item into small pieces and the total size of items you choo...
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一个实际项目-Java-架构设计"><span class="toc-number">1.</span> <span class="toc-text">一个实际项目 Java 架构设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-总体架构模块图"><span class="toc-number">1.1.</span> <span class="toc-text">1 总体架构模块图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-抽象架构模块图"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 抽象架构模块图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-具体技术架构模块图"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 具体技术架构模块图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-技术方案"><span class="toc-number">1.2.</span> <span class="toc-text">2 技术方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-controller-方案"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 controller 方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-modoule-层"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 modoule 层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-DB-层"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 DB 层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-通用模块、组件"><span class="toc-number">1.3.</span> <span class="toc-text">3. 通用模块、组件</span></a></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1268,6 +1155,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
     
     </body>
 </html>
