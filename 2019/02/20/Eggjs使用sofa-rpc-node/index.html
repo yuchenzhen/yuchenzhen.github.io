@@ -457,8 +457,9 @@ height:50vh;
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/config.default.js</span></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line">exports.sofaRpc = &#123;</span><br><span class="line">  registry: &#123;</span><br><span class="line">    address: <span class="string">'127.0.0.1:2181'</span>, <span class="comment">// zk 地址指向本地 2181 端口</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h4 id="二-配置接口"><a href="#二-配置接口" class="headerlink" title="二. 配置接口"></a>二. 配置接口</h4><p>ProtoService.proto </p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">package com.alipay.sofa.rpc.protobuf;</span><br><span class="line">option java_multiple_files = true; // 可选</span><br><span class="line">option java_outer_classname = &quot;ProtoServiceModels&quot;; // 可选</span><br><span class="line"></span><br><span class="line">service ProtoService &#123;</span><br><span class="line">    rpc echoObj (EchoRequest) returns (EchoResponse) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message EchoRequest &#123;</span><br><span class="line">    string name = 1;</span><br><span class="line">    Group group = 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message EchoResponse &#123;</span><br><span class="line">    int32 code = 1;</span><br><span class="line">    string message = 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum Group &#123;</span><br><span class="line">    A = 0;</span><br><span class="line">    B = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">"proto3"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.alipay.sofa.rpc.protobuf;</span><br><span class="line"><span class="keyword">option</span> java_multiple_files = <span class="literal">true</span>; <span class="comment">// 可选</span></span><br><span class="line"><span class="keyword">option</span> java_outer_classname = <span class="string">"ProtoServiceModels"</span>; <span class="comment">// 可选</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">ProtoService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">rpc</span> echoObj (EchoRequest) <span class="keyword">returns</span> (EchoResponse) &#123;&#125;</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">message EchoRequest &#123;</span></span><br><span class="line"><span class="function">    string name = 1</span>;</span><br><span class="line">    Group group = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">EchoResponse</span> </span>&#123;</span><br><span class="line">    <span class="built_in">int32</span> code = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">string</span> <span class="class"><span class="keyword">message</span> = 2;</span></span><br><span class="line"><span class="class">&#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">enum</span> Group </span>&#123;</span><br><span class="line">    A = <span class="number">0</span>;</span><br><span class="line">    B = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面这个 ProtoService.proto 文件定义了一个服务：实际上就是需要调用 Java 项目中<code>com.alipay.sofa.rpc.protobuf.ProtoService</code>，它有一个叫 <code>echoObj</code> 的方法，入口参数类型是 <code>EchoRequest</code>，返回值类型是 <code>EchoResponse</code>。</p>
+<p>该 Java 项目在此 <a href="https://github.com/eggjs/examples/tree/master/sofa-rpc" target="_blank" rel="noopener">Eggjs RPC Example</a></p>
 <h3 id="protobuf"><a href="#protobuf" class="headerlink" title="protobuf"></a>protobuf</h3><p>protobuf 是什么？</p>
 <blockquote>
 <p>Protocol Buffers 是一种轻便高效的结构化数据存储格式，可以用于结构化数据串行化，或者说序列化。它很适合做数据存储或 RPC 数据交换格式。可用于通讯协议、数据存储等领域的语言无关、平台无关、可扩展的序列化结构数据格式。目前提供了 C++、Java、Python 三种语言的 API</p>
@@ -484,14 +485,14 @@ height:50vh;
 <p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g0efo6xc6dj20ro0b8myc.jpg" alt=""></p>
 <h3 id="Nodejs-暴露-RPC-服务给-Java-调用"><a href="#Nodejs-暴露-RPC-服务给-Java-调用" class="headerlink" title="Nodejs 暴露 RPC 服务给 Java 调用"></a>Nodejs 暴露 RPC 服务给 Java 调用</h3><p><a href="https://www.yuque.com/egg/nodejs/cpn3uo" target="_blank" rel="noopener">Eggjs 和 SOFA 的跨语言互调 教程详情</a></p>
 <p>这个可以自己去尝试下，目前不在此介绍</p>
-<p>### </p>
-<p>参考资料：</p>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><p>参考资料：</p>
 <p><a href="https://www.yuque.com/egg/nodejs/cpn3uo" target="_blank" rel="noopener">Eggjs 和 SOFA 的跨语言互调</a></p>
 <p><a href="https://www.v2ex.com/t/483820" target="_blank" rel="noopener">nodejs有哪些比较流行的 rpc 框架?</a></p>
 <p><a href="https://ketao1989.github.io/2016/12/10/rpc-theory-in-action/" target="_blank" rel="noopener">深入浅出RPC原理</a></p>
 <p><a href="https://www.zhihu.com/question/41609070/answer/191965937" target="_blank" rel="noopener">既然有 HTTP 请求，为什么还要用 RPC 调用？</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/28414262" target="_blank" rel="noopener">分布式架构核心RPC原理</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/29857744" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/29857744</a></p>
+<p><a href="https://github.com/yuchenzhen/egg-rpc-demo" target="_blank" rel="noopener">上文demo</a></p>
 <h4 id="End"><a href="#End" class="headerlink" title="End :)"></a>End :)</h4>
     </article>
     <!-- license  -->
@@ -620,7 +621,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Eggjs使用sofa-rpc-node"><span class="toc-number">1.</span> <span class="toc-text">Eggjs使用sofa-rpc-node</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RPC-（Remote-Procedure-Call）"><span class="toc-number">1.0.1.</span> <span class="toc-text">RPC （Remote Procedure Call）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与-HTTP-的区别？"><span class="toc-number">1.1.</span> <span class="toc-text">与 HTTP 的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RPC"><span class="toc-number">1.2.</span> <span class="toc-text">RPC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP-HyperText-Transfer-Protocol"><span class="toc-number">1.2.1.</span> <span class="toc-text">HTTP (HyperText Transfer Protocol)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#区别"><span class="toc-number">1.2.2.</span> <span class="toc-text">区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实践"><span class="toc-number">2.</span> <span class="toc-text">实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zookeeper"><span class="toc-number">2.1.</span> <span class="toc-text">zookeeper</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一-配置"><span class="toc-number">2.1.1.</span> <span class="toc-text">一. 配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二-配置接口"><span class="toc-number">2.1.2.</span> <span class="toc-text">二. 配置接口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#protobuf"><span class="toc-number">2.2.</span> <span class="toc-text">protobuf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Egg-sofa-generator"><span class="toc-number">2.3.</span> <span class="toc-text">Egg-sofa-generator</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#调用"><span class="toc-number">2.3.1.</span> <span class="toc-text">调用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nodejs-暴露-RPC-服务给-Java-调用"><span class="toc-number">2.4.</span> <span class="toc-text">Nodejs 暴露 RPC 服务给 Java 调用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#End"><span class="toc-number">2.4.1.</span> <span class="toc-text">End :)</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Eggjs使用sofa-rpc-node"><span class="toc-number">1.</span> <span class="toc-text">Eggjs使用sofa-rpc-node</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RPC-（Remote-Procedure-Call）"><span class="toc-number">1.0.1.</span> <span class="toc-text">RPC （Remote Procedure Call）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与-HTTP-的区别？"><span class="toc-number">1.1.</span> <span class="toc-text">与 HTTP 的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RPC"><span class="toc-number">1.2.</span> <span class="toc-text">RPC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP-HyperText-Transfer-Protocol"><span class="toc-number">1.2.1.</span> <span class="toc-text">HTTP (HyperText Transfer Protocol)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#区别"><span class="toc-number">1.2.2.</span> <span class="toc-text">区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实践"><span class="toc-number">2.</span> <span class="toc-text">实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zookeeper"><span class="toc-number">2.1.</span> <span class="toc-text">zookeeper</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一-配置"><span class="toc-number">2.1.1.</span> <span class="toc-text">一. 配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二-配置接口"><span class="toc-number">2.1.2.</span> <span class="toc-text">二. 配置接口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#protobuf"><span class="toc-number">2.2.</span> <span class="toc-text">protobuf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Egg-sofa-generator"><span class="toc-number">2.3.</span> <span class="toc-text">Egg-sofa-generator</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#调用"><span class="toc-number">2.3.1.</span> <span class="toc-text">调用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nodejs-暴露-RPC-服务给-Java-调用"><span class="toc-number">2.4.</span> <span class="toc-text">Nodejs 暴露 RPC 服务给 Java 调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">2.5.</span> <span class="toc-text"> </span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#End"><span class="toc-number">2.5.1.</span> <span class="toc-text">End :)</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -633,6 +634,18 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1066,6 +1079,11 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/SpringBoot-IDE-initial/" >如何使用 Spring Boot 初始一个 webService 项目</a>
         </li>
     
@@ -1076,17 +1094,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-562.Backpack IVFollow/" >Lintcode- 562.Backpack IVFollow</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-440. Backpack IIIFollow/" >LintCode-440. Backpack IIIFollow</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-562.Backpack IVFollow/" >Lintcode- 562.Backpack IVFollow</a>
         </li>
     
     
@@ -1151,13 +1164,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
     
-        <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
-    
-        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
-    
         <span class="sidebar-tag-name" data-tags="Node.js RPC"><span class="iconfont-archer">&#xe606;</span>Node.js RPC</span>
     
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
+    
+        <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
     
         <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
@@ -1165,9 +1178,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="LintCode"><span class="iconfont-archer">&#xe606;</span>LintCode</span>
     
-        <span class="sidebar-tag-name" data-tags="Java Spring-boot"><span class="iconfont-archer">&#xe606;</span>Java Spring-boot</span>
-    
         <span class="sidebar-tag-name" data-tags="electron"><span class="iconfont-archer">&#xe606;</span>electron</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java Spring-boot"><span class="iconfont-archer">&#xe606;</span>Java Spring-boot</span>
     
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
