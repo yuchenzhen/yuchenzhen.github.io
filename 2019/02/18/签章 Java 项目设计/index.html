@@ -390,40 +390,47 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <h2 id="签章-Java-项目设计"><a href="#签章-Java-项目设计" class="headerlink" title="签章 Java 项目设计"></a>签章 Java 项目设计</h2><h2 id="1-总体架构模块图"><a href="#1-总体架构模块图" class="headerlink" title="1 总体架构模块图"></a>1 总体架构模块图</h2><h4 id="1-1-抽象架构模块图"><a href="#1-1-抽象架构模块图" class="headerlink" title="1.1 抽象架构模块图"></a>1.1 抽象架构模块图</h4><p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g0gg6ik424j20s00bfdgc.jpg" alt=""></p>
-<h2 id="2-技术方案"><a href="#2-技术方案" class="headerlink" title="2 技术方案"></a>2 技术方案</h2><p>框架 ： 使用 Spring Boot</p>
-<h4 id="2-1-Controller-层"><a href="#2-1-Controller-层" class="headerlink" title="2.1. Controller 层"></a>2.1. Controller 层</h4><h5 id="内部服务：-RPC"><a href="#内部服务：-RPC" class="headerlink" title="内部服务： RPC"></a>内部服务： RPC</h5><ul>
-<li><strong>Spring Cloud</strong> </li>
-</ul>
-<blockquote>
-<p>作者：网易云</p>
-<p>链接：<a href="https://www.zhihu.com/question/45413135/answer/226794957" target="_blank" rel="noopener">https://www.zhihu.com/question/45413135/answer/226794957</a></p>
-<p>来源：知乎</p>
-<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<p>虽然Dubbo 支持短连接大数据量的服务提供模式，但绝大多数情况下都是使用长连接小数据量的模式提供服务使用的。所以，<strong>对于类似于电商等同步调用场景多并且能支撑搭建Dubbo 这套比较复杂环境的成本的产品而言，Dubbo 确实是一个可以考虑的选择</strong>。但如果产品业务中由于后台业务逻辑复杂、时间长而导致异步逻辑比较多的话，可能Dubbo 并不合适。同时，对于人手不足的初创产品而言，这么重的架构维护起来也不是很方便。</p>
-<p>Spring Cloud由众多子项目组成，如Spring Cloud Config、Spring Cloud Netflix、Spring Cloud Consul 等，提供了搭建分布式系统及微服务常用的工具，如配置管理、服务发现、断路器、智能路由、微代理、控制总线、一次性token、全局锁、选主、分布式会话和集群状态等，<strong>满足了构建微服务所需的所有解决方案</strong>。比如使用Spring Cloud Config 可以实现统一配置中心，对配置进行统一管理；使用Spring Cloud Netflix 可以实现Netflix 组件的功能 - 服务发现（Eureka）、智能路由（Zuul）、客户端负载均衡（Ribbon）。</p>
-<p>但它并没有重复造轮子，而是选用目前各家公司开发的比较成熟的、<strong>经得住实践考验</strong>的服务框架（我们需要特别感谢Netflix ，这家很早就成功实践微服务的公司，几年前把自家几乎整个微服务框架栈贡献给了社区，Spring Cloud主要是对Netflix开源组件的进一步封装），通过Spring Boot 进行封装集成并简化其使用方式。基于Spring Boot，意味着其使用方式如Spring Boot <strong>简单易用</strong>；能够与Spring Framework、Spring Boot、Spring Data 等其他Spring 项目完美融合，意味着<strong>能从Spring获得巨大的便利</strong>，意味着<strong>能减少已有项目的迁移成本</strong>。</p>
-</blockquote>
-<p>​    Spring Cloud基于 Spring Boot ， 有一整套的解决方案——服务注册与发现，服务消费，服务保护与熔断，网关，分布式调用追踪追踪，分布式配置管理。</p>
-<p>​    HTTP 协议传输</p>
-<p>​    Eureka Server实现注册注册中心 和 服务发现中心</p>
-<ul>
-<li><p><strong>Dobbo</strong></p>
-<p>网络开销小，二进制传输，自己实现传输协议？</p>
-<p>dubbo jar 包依赖？开发难度大？</p>
+<h2 id="2-业务流程"><a href="#2-业务流程" class="headerlink" title="2 业务流程"></a>2 业务流程</h2><ol>
+<li><p>CA申请实名过程</p>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g23phisvhnj20be16m778.jpg" alt=""></p>
 </li>
-</ul>
-<p><a href="https://www.zhihu.com/question/45413135" target="_blank" rel="noopener">请问哪位大神比较过spring cloud和dubbo，各自的优缺点是什么?</a></p>
-<p><strong>看上去选择 Spring Cloud 比较好</strong></p>
-<h5 id="外部服务：-HTTP"><a href="#外部服务：-HTTP" class="headerlink" title="外部服务： HTTP"></a>外部服务： HTTP</h5><p><strong>RestTemplate</strong></p>
-<p><code>RestTemplate</code>是<code>Spring</code>提供的用于访问Rest服务的客户端，<code>RestTemplate</code>提供了多种便捷访问远程Http服务的方法</p>
-<h4 id="2-2-model-层"><a href="#2-2-model-层" class="headerlink" title="2.2. model 层"></a>2.2. model 层</h4><p>​    使用 <code>spring-boot-starter-data-mongodb</code>, spring.io <a href="https://spring.io/guides/gs/accessing-data-mongodb/" target="_blank" rel="noopener">官网使用</a></p>
-<h4 id="2-3-DB-层"><a href="#2-3-DB-层" class="headerlink" title="2.3. DB 层"></a>2.3. DB 层</h4><p>​    考虑到日常项目还是使用 mongo ，依然是 mongo</p>
-<h4 id="2-4-通用模块、组件"><a href="#2-4-通用模块、组件" class="headerlink" title="2.4. 通用模块、组件"></a>2.4. 通用模块、组件</h4><p>数据基础性校验：<a href="https://my.oschina.net/chkui/blog/1931557" target="_blank" rel="noopener">Spring Validator</a></p>
-<h2 id="3-业务逻辑"><a href="#3-业务逻辑" class="headerlink" title="3 业务逻辑"></a>3 业务逻辑</h2><p>系统表图</p>
-<p><img src="http://ww1.sinaimg.cn/mw690/6026faa6gy1g0gffpygtxj20o40waada.jpg" alt=""></p>
+<li><p>合同签署过程</p>
+</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g23ptw9ol1j20v60ymq6w.jpg" alt=""></p>
+<h2 id="3-业务逻辑"><a href="#3-业务逻辑" class="headerlink" title="3 业务逻辑"></a>3 业务逻辑</h2><p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g23p8ih2x4j20re14mtgh.jpg" alt=""></p>
 <p>根据 Model 划分业务</p>
 <p>划分 Order， Contract， Ca， Transaction 和 Log 模块</p>
 <p>Bussiness 作为业务模块， 业务逻辑 组合调用  Order， Contract， Ca， Transaction 和 Log 模块内容</p>
+<p>技术选型</p>
+<ul>
+<li>后端框架： Spring Boot</li>
+<li>业务数据库： Mongo</li>
+<li>缓存： Redis</li>
+<li>持久层: MongoRepository</li>
+<li>消息队列：RabbitMq</li>
+<li>文档生成工具：Swagger2</li>
+<li>日志组件：slf4j </li>
+<li>Java 实用工具： Lombok</li>
+<li>测试框架：JUnit5， MockMvc</li>
+<li>其他：<ul>
+<li>日志记录：Spring AOP</li>
+</ul>
+</li>
+</ul>
+<p>初步目录结构：</p>
+<p>  signature<br>  ├─<br>  ├── Ca<br>  ├── ├── Ca.java<br>  ├── ├── CaRepository.java<br>  ├── ├── CaService.java                                        —- 单独注册 Ca 证书接口  1. 注册接口， 2. 个人实名接口， 3. 企业实名接口 4. 实名认证接口  5. 盖章上传接口<br>  ├── ├── CaServiceImp.java                                     —- 单独注册 Ca 证书接口实现<br>  ├── Contract<br>  ├── ├── Contract.java<br>  ├── ├── ContractRepository.java<br>  ├── ├── ContractService.java                                  —- 1. 合同模板上传接口   2. 合同模板 id 查询接口<br>  ├── ├── ContractServiceImp.java                               —- 1. 合同模板上传接口实现<br>  ├── Log<br>  ├── ├── Log.java<br>  ├── ├── LogInterceptor.java                  —- AOP插入Controller<br>  ├── ├── LogRepository.java<br>  ├── Order<br>  ├── ├── Order.java<br>  ├── ├── OrderRepository.java<br>  ├── ├── OrderService.java                                     —- 订单记录接口 1. 创建接口  2. 订单完成接口 3. 订单失败接口 4.订单查询接口<br>  ├── ├── OrderServiceImp.java                                  —- 订单记录接口实现<br>  ├── Transaction<br>  ├── ├── Transaction.java<br>  ├── ├── TransactionRepository.java<br>  ├── ├── TransactionService.java                               —- 合同单次签署接口    1. 发起签署接口    2. 接收回调处理接口<br>  ├── ├── TransactionServiceImp.java                            —- 合同单次签署接口实现</p>
+<p>  ├── config<br>  ├── ├── MyWebAppConfigurer.java</p>
+<p>  ├── Signature                                                 —- 具体业务层<br>  ├── ├── SignController.java                                   —- 1. 个人注册暴露接口  </p>
+<pre><code>2. 企业注册暴露接口 
+3. 合同模板建立接口  
+4. 获取合同模板id接口  
+5. 模板生产填充内容合同接口  
+6. 合同签署接口 
+7. 接收合同签署结果接口
+</code></pre><p>  ├── Proxy                                                     —- 第三方请求通信层<br>  ├── ├── FDDProxyService.java                                  —- 法大大通信层<br>  ├── ├── InfoProxyService.java                                 —- 对外异步通知通信层                                </p>
+<p>  ├── utils<br>  ├── ├── GetRequestJsonUtils.java<br>  ├── ├── MyHttpServletRequestWrapper.java</p>
+<p>  ├── SignatureApplication.java</p>
 
     </article>
     <!-- license  -->
@@ -557,7 +564,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#签章-Java-项目设计"><span class="toc-number">1.</span> <span class="toc-text">签章 Java 项目设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-总体架构模块图"><span class="toc-number">2.</span> <span class="toc-text">1 总体架构模块图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-抽象架构模块图"><span class="toc-number">2.0.1.</span> <span class="toc-text">1.1 抽象架构模块图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-技术方案"><span class="toc-number">3.</span> <span class="toc-text">2 技术方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-Controller-层"><span class="toc-number">3.0.1.</span> <span class="toc-text">2.1. Controller 层</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#内部服务：-RPC"><span class="toc-number">3.0.1.1.</span> <span class="toc-text">内部服务： RPC</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#外部服务：-HTTP"><span class="toc-number">3.0.1.2.</span> <span class="toc-text">外部服务： HTTP</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-model-层"><span class="toc-number">3.0.2.</span> <span class="toc-text">2.2. model 层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-DB-层"><span class="toc-number">3.0.3.</span> <span class="toc-text">2.3. DB 层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-通用模块、组件"><span class="toc-number">3.0.4.</span> <span class="toc-text">2.4. 通用模块、组件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-业务逻辑"><span class="toc-number">4.</span> <span class="toc-text">3 业务逻辑</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#签章-Java-项目设计"><span class="toc-number">1.</span> <span class="toc-text">签章 Java 项目设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-总体架构模块图"><span class="toc-number">2.</span> <span class="toc-text">1 总体架构模块图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-抽象架构模块图"><span class="toc-number">2.0.1.</span> <span class="toc-text">1.1 抽象架构模块图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-业务流程"><span class="toc-number">3.</span> <span class="toc-text">2 业务流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-业务逻辑"><span class="toc-number">4.</span> <span class="toc-text">3 业务逻辑</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -964,7 +971,8 @@ top:50vh;
     
     
     
-    <div class="total-archive"> Total : 28 </div>
+    
+    <div class="total-archive"> Total : 29 </div>
     
     <div class="post-archive">
     
@@ -973,6 +981,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/2019/06/10/AutoTestByPython/" >[Untitled Post]</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1040,6 +1053,11 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-669. Coin Change/" >LintCode- 669. Coin ChangeFollow</a>
         </li>
     
@@ -1055,17 +1073,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-440. Backpack IIIFollow/" >LintCode-440. Backpack IIIFollow</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode - Backpack IIFollow/" >LinCode - Backpack IIFollow</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-440. Backpack IIIFollow/" >LintCode-440. Backpack IIIFollow</a>
         </li>
     
     
@@ -1132,17 +1145,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
     
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
         <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
-    
-        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
         <span class="sidebar-tag-name" data-tags="Node.js RPC"><span class="iconfont-archer">&#xe606;</span>Node.js RPC</span>
     
-        <span class="sidebar-tag-name" data-tags="LintCode"><span class="iconfont-archer">&#xe606;</span>LintCode</span>
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
         <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="LintCode"><span class="iconfont-archer">&#xe606;</span>LintCode</span>
     
         <span class="sidebar-tag-name" data-tags="Node.js dubbo"><span class="iconfont-archer">&#xe606;</span>Node.js dubbo</span>
     
@@ -1152,11 +1165,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
+        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
+    
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
-    
-        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

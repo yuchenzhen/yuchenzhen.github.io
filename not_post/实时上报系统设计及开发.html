@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>unix简化路径 · White&#39;s Studio</title>
+    <title>实时上报系统设计及开发 · White&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,8 +70,6 @@
 
     <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
-    
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
         
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -193,23 +191,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >White&#39;s Studio.</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">unix简化路径</a>
-            </div>
-    </div>
     
     <a class="home-link" href=/>White's Studio.</a>
 </header>
@@ -223,67 +210,24 @@
 
 
 
-height:50vh;
-
 >
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post-bg2.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            unix简化路径
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <!-- 文章页标签  -->
-            
-                <div class= post-intro-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Leedcode">Leedcode</a>
-    
-</div>
-            
-            <div class="post-intro-meta">
-                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2018/07/31</span>
-                
-                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                    <span class="iconfont-archer">&#xe602;</span>
-                    <span id="busuanzi_value_page_pv"></span>
-                </span>
-                
-                <span class="shareWrapper">
-                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                    <span class="shareText">Share</span>
-                    <ul class="shareList">
-                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                            <div class="share-qrcode"></div>
-                        </li>
-                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                    </ul>
-                </span>
-            </div>
         
     </div>
 </div>
@@ -389,33 +333,60 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="unix简化路径"><a href="#unix简化路径" class="headerlink" title="unix简化路径"></a>unix简化路径</h1><p>在 leedcode 里做了一道题， 题目是这样的</p>
-<p>给定一个文档 (Unix-style) 的完全路径，请进行路径简化。</p>
-<p>例如，<br><strong>path</strong> = <code>&quot;/home/&quot;</code>, =&gt; <code>&quot;/home&quot;</code><br><strong>path</strong> = <code>&quot;/a/./b/../../c/&quot;</code>, =&gt; <code>&quot;/c&quot;</code></p>
-<p><strong>边界情况:</strong></p>
-<ul>
-<li>你是否考虑了 路径 = <code>&quot;/../&quot;</code> 的情况？<br>在这种情况下，你需返回 <code>&quot;/&quot;</code> 。</li>
-<li>此外，路径中也可能包含多个斜杠 <code>&#39;/&#39;</code> ，如 <code>&quot;/home//foo/&quot;</code> 。<br>在这种情况下，你可忽略多余的斜杠，返回 <code>&quot;/home/foo&quot;</code> 。</li>
-</ul>
-<p>我的算法很简单， 首先先把所有的 “/” 去掉，因为路径就是用“/”分割了，内容都是在“/”之间，</p>
-<p>而内容只有几种类型:</p>
-<p>​    1）目录名；</p>
-<p>​    2）“.”;  表示当前目录</p>
-<p>​    3) “..”; 表示上级目录</p>
-<p>​    在本题中，2）和 3）都是需要消灭掉的，所以我遍历每个数组的，遇到“.”就直接取当前目录，直接把当前数组的值推出来；遇到“..”，就当前一个数组的内容也切掉</p>
-<p>​    当然还有些一些特殊处理</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; path</span></span><br><span class="line"><span class="comment"> * @return &#123;string&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> simplifyPath = <span class="function"><span class="keyword">function</span>(<span class="params">path</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> pathArray = path.split(<span class="string">"/"</span>)</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; pathArray.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (pathArray[i] === <span class="string">'.'</span> || (i &gt; <span class="number">0</span> &amp;&amp; pathArray[i] === <span class="string">''</span>) ) &#123;</span><br><span class="line">      pathArray.splice(i, <span class="number">1</span>)</span><br><span class="line">      i = i - <span class="number">1</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pathArray[i] === <span class="string">'..'</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        pathArray.splice(i - <span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">        i = i - <span class="number">2</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        pathArray.splice(i, <span class="number">1</span>)</span><br><span class="line">        i = i - <span class="number">2</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (pathArray.length === <span class="number">1</span>) <span class="keyword">return</span> <span class="string">`/<span class="subst">$&#123;pathArray[<span class="number">0</span>]&#125;</span>`</span></span><br><span class="line">  <span class="keyword">if</span> (pathArray.length === <span class="number">0</span>) <span class="keyword">return</span> <span class="string">`/`</span></span><br><span class="line">  <span class="keyword">if</span> (pathArray[<span class="number">0</span>] !== <span class="string">''</span>) <span class="keyword">return</span> <span class="string">`/<span class="subst">$&#123;pathArray.join(<span class="string">'/'</span>)&#125;</span>`</span></span><br><span class="line">  <span class="keyword">return</span> pathArray.join(<span class="string">'/'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后我看了一下这个算法的执行效率还是蛮高的：我的提交执行用时 已经战胜 97.06 % 的 javascript 提交记录</p>
-<p>而在我这个算法前面的只有一个算法了， 如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; path</span></span><br><span class="line"><span class="comment"> * @return &#123;string&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> simplifyPath = <span class="function"><span class="keyword">function</span>(<span class="params">path</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> len = path.length</span><br><span class="line">  <span class="keyword">let</span> arr = <span class="built_in">Array</span>.from(&#123;<span class="attr">length</span>: <span class="number">10</span>&#125;).map(<span class="function"><span class="params">()</span> =&gt;</span> <span class="string">'/'</span>)</span><br><span class="line">  <span class="keyword">let</span> point = <span class="number">0</span></span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">0</span></span><br><span class="line">  <span class="keyword">while</span> (i &lt; len) &#123;</span><br><span class="line">    i++</span><br><span class="line">    <span class="keyword">let</span> mid = <span class="string">''</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; len &amp;&amp; path[i] !== <span class="string">'/'</span>) &#123;</span><br><span class="line">      mid += path[i++]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (mid === <span class="string">'..'</span>) &#123;</span><br><span class="line">      point = point &gt; <span class="number">0</span> ? point - <span class="number">1</span> : <span class="number">0</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mid &amp;&amp; mid !== <span class="string">'.'</span>) &#123;</span><br><span class="line">      arr[++point] = mid</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> res = <span class="string">''</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">1</span>; j &lt;= point; j++) &#123;</span><br><span class="line">    res += <span class="string">'/'</span> + arr[j]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!point) res = <span class="string">'/'</span></span><br><span class="line">  <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <h3 id="1-需求分析"><a href="#1-需求分析" class="headerlink" title="1. 需求分析"></a>1. 需求分析</h3><p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g3msxqxdqhj20oy0gdwi8.jpg" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g3mt0xxtq6j20ow0p57cx.jpg" alt=""></p>
+<p>总结下来，主要有两部分：</p>
+<ol>
+<li>将存量数据通过接口形式推送到实时数据上报中心；</li>
+<li>将增量数据通过接口形式推送到实时数据上报中心。</li>
+</ol>
+<h3 id="2-业务流程"><a href="#2-业务流程" class="headerlink" title="2. 业务流程"></a>2. 业务流程</h3><h4 id="设想流程1："><a href="#设想流程1：" class="headerlink" title="设想流程1："></a>设想流程1：</h4><p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g4mhu0d181j20he0fmt9j.jpg" alt=""></p>
+<p>优点：主要业务考拉业务系统比较完整，</p>
+<p>缺点： 需要改动考拉业务系统，上报系统严重依赖考拉各个业务系统的业务请求。请求丢失还涉及各种补单机制。</p>
+<h4 id="实时上报流程"><a href="#实时上报流程" class="headerlink" title="实时上报流程"></a>实时上报流程</h4><p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g4kjq9t1vmj20io0hamy5.jpg" alt=""></p>
+<h4 id="数据表及上报订单状态"><a href="#数据表及上报订单状态" class="headerlink" title="数据表及上报订单状态"></a>数据表及上报订单状态</h4><p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g4kjssp393j20ba0h23z2.jpg" alt=""></p>
+<h3 id="3-系统设计"><a href="#3-系统设计" class="headerlink" title="3. 系统设计"></a>3. 系统设计</h3><h4 id="3-1-系统架构"><a href="#3-1-系统架构" class="headerlink" title="3.1 系统架构"></a>3.1 系统架构</h4><p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g4lb66yzwuj20pt0n63yx.jpg" alt=""></p>
+<h4 id="3-2-系统表图"><a href="#3-2-系统表图" class="headerlink" title="3.2 系统表图"></a>3.2 系统表图</h4><p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g4l5v3xhhqj21d809qq4h.jpg" alt=""></p>
+<h4 id="3-3-技术选型"><a href="#3-3-技术选型" class="headerlink" title="3.3 技术选型"></a>3.3 技术选型</h4><p>语言： TypeScript</p>
+<p>项目服务框架：koa2</p>
+<p>测试框架：Mocha</p>
+<p>数据库：Mysql</p>
+<p>ORM:  <em>sequelize</em></p>
+<p>部署方式：docker 镜像</p>
+<p>另外 nodejs 的 mysql ORM 有很多种， 大家可以尝试使用不同的 ORM。</p>
+<ol>
+<li><a href="https://github.com/mysqljs" target="_blank" rel="noopener">mysqljs</a>/<strong>mysql</strong></li>
+<li><a href="https://github.com/typeorm/typeorm" target="_blank" rel="noopener">typeorm/typeorm</a></li>
+<li><a href="https://github.com/bookshelf" target="_blank" rel="noopener">bookshelf</a>/<strong>bookshelf</strong></li>
+<li><a href="https://github.com/sequelize/sequelize" target="_blank" rel="noopener">sequelize/<em>sequelize</em></a></li>
+</ol>
+<h4 id="npmtrends："><a href="#npmtrends：" class="headerlink" title="npmtrends："></a>npmtrends：</h4><p><a href="https://www.npmtrends.com/sequelize-vs-typeorm-vs-bookshelf-vs-mysql2-vs-mysql" target="_blank" rel="noopener">https://www.npmtrends.com/sequelize-vs-typeorm-vs-bookshelf-vs-mysql2-vs-mysql</a></p>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g4lvao98mxj21cm2sgh2x.jpg" alt=""></p>
+<h3 id="4-代码-Review"><a href="#4-代码-Review" class="headerlink" title="4. 代码 Review"></a>4. 代码 Review</h3><p>代码结构：</p>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g4l6mbmx8nj20hs14wdj3.jpg" alt=""></p>
+<h4 id="主要模块："><a href="#主要模块：" class="headerlink" title="主要模块："></a>主要模块：</h4><h5 id="业务类："><a href="#业务类：" class="headerlink" title="业务类："></a>业务类：</h5><p>check：每日对账模块</p>
+<p>report：数据上报模块</p>
+<p>misc：程序\数据修复类模块</p>
+<h5 id="基础类："><a href="#基础类：" class="headerlink" title="基础类："></a>基础类：</h5><p>config：配置模块</p>
+<p>lib：基础工具模块</p>
+<p>middlewares： 中间件模块</p>
+<p>model: 数据库对象模块</p>
+<p>proxy：系统代理模块，对外请求模块</p>
+<p>task：定时任务模块</p>
+<p>test：测试模块</p>
+<h4 id="程序阅读"><a href="#程序阅读" class="headerlink" title="程序阅读"></a>程序阅读</h4><p>本程序主要是两个 主要 业务</p>
+<ol>
+<li>定时扫对应数据表数据，发起上报。 —— report 模块</li>
+<li>对已发起上报的数据， 发起对账。 —— check 模块</li>
+</ol>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者: <a href="http://yuchenzhen.github.io">White</a>
-            <p>原文链接: <a href="http://yuchenzhen.github.io/2018/07/31/simplifyPath/">http://yuchenzhen.github.io/2018/07/31/simplifyPath/</a>
-            <p>发表日期: <a href="http://yuchenzhen.github.io/2018/07/31/simplifyPath/">July 31st 2018, 10:12:18</a>
+            <p>原文链接: <a href="http://yuchenzhen.github.io/not_post/实时上报系统设计及开发.html">http://yuchenzhen.github.io/not_post/实时上报系统设计及开发.html</a>
+            <p>发表日期: <a href="http://yuchenzhen.github.io/not_post/实时上报系统设计及开发.html">June 2nd 2019, 11:15:06</a>
             <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -423,18 +394,8 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/08/05/Leetcode-二进制间距/" title= Leetcode-二进制间距 >
-                    <div class="nextTitle">Leetcode-二进制间距</div>
-                </a>
-            
         </li>
         <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/07/25/A-vue-upload-component-info/" title= A vue upload component info >
-                    <div class="prevTitle">A vue upload component info</div>
-                </a>
             
         </li>
     </ul>
@@ -525,24 +486,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#unix简化路径"><span class="toc-number">1.</span> <span class="toc-text">unix简化路径</span></a></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1211,8 +1154,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
     
     </body>
 </html>

@@ -428,7 +428,7 @@ height:50vh;
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// TestConsumerService.java</span></span><br><span class="line"><span class="keyword">package</span> com.dubbo.learn;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.dubbo.config.annotation.Reference;</span><br><span class="line"><span class="keyword">import</span> com.dubbo.learn.dubbo.TestProviderService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestConsumerService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Reference</span>(version = <span class="string">"1.0.0"</span>)</span><br><span class="line">    TestProviderService testProviderService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consumer</span> <span class="params">(String who)</span> </span>&#123;</span><br><span class="line">        String res = testProviderService.Hello(who);</span><br><span class="line">        System.out.println(<span class="string">"consumer : provider says "</span> + res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在主程序函数调用该Service 的函数</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DubboConsumerApplication.java</span></span><br><span class="line"><span class="keyword">package</span> com.dubbo.learn;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ConfigurableApplicationContext;</span><br><span class="line"><span class="keyword">import</span> com.dubbo.learn.TestConsumerService;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DubboConsumerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ConfigurableApplicationContext run = SpringApplication.run(DubboConsumerApplication.class, args);</span><br><span class="line">        TestConsumerService testConsumer = run.getBean(TestConsumerService.class);</span><br><span class="line">        testConsumer.consumer(<span class="string">"White"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>@Reference`这个注解就是用来调用 dubbo 对应的接口的。所以也是要引入跟服务端的那几个包</p>
+<p><code>@Reference</code>这个注解就是用来调用 dubbo 对应的接口的。所以也是要引入跟服务端的那几个包</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--pom.xml--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.curator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>curator-framework<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.11.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>1.4 最后我们把dubbo 的启动配置写到<code>application.properties</code>里面</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#application.properties</span><br><span class="line">server.port=8830</span><br><span class="line">dubbo.application.name=consumer</span><br><span class="line">#注册中心地址</span><br><span class="line">dubbo.registry.address=zookeeper://127.0.0.1:2181</span><br><span class="line"></span><br><span class="line">dubbo.scan.base-packages=com.dubboo.learn.dubbo</span><br><span class="line">dubbo.protocol.port=20880</span><br></pre></td></tr></table></figure>
@@ -470,6 +470,11 @@ height:50vh;
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/06/10/AutoTestByPython/" title=  >
+                    <div class="nextTitle">[Untitled Post]</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -991,7 +996,8 @@ top:50vh;
     
     
     
-    <div class="total-archive"> Total : 28 </div>
+    
+    <div class="total-archive"> Total : 29 </div>
     
     <div class="post-archive">
     
@@ -1000,6 +1006,11 @@ top:50vh;
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/2019/06/10/AutoTestByPython/" >[Untitled Post]</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1067,6 +1078,11 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-669. Coin Change/" >LintCode- 669. Coin ChangeFollow</a>
         </li>
     
@@ -1082,17 +1098,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-440. Backpack IIIFollow/" >LintCode-440. Backpack IIIFollow</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode - Backpack IIFollow/" >LinCode - Backpack IIFollow</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-440. Backpack IIIFollow/" >LintCode-440. Backpack IIIFollow</a>
         </li>
     
     
@@ -1159,17 +1170,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
     
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
         <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
-    
-        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
         <span class="sidebar-tag-name" data-tags="Node.js RPC"><span class="iconfont-archer">&#xe606;</span>Node.js RPC</span>
     
-        <span class="sidebar-tag-name" data-tags="LintCode"><span class="iconfont-archer">&#xe606;</span>LintCode</span>
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
         <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="LintCode"><span class="iconfont-archer">&#xe606;</span>LintCode</span>
     
         <span class="sidebar-tag-name" data-tags="Node.js dubbo"><span class="iconfont-archer">&#xe606;</span>Node.js dubbo</span>
     
@@ -1179,11 +1190,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
+        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
+    
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
-    
-        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

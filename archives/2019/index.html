@@ -336,6 +336,36 @@
     
     
         <article class="index-post">
+            <a class="abstract-title" href = "/2019/06/10/AutoTestByPython/" >
+                
+                    <span>[Untitled Post]</span>
+            </a>
+            <div class="abstract-content">
+                Auto Test By Python目的：针 LintCode-91. Minimum Adjustment Cost.md 对项目做系列流程测试，以达到，每次做回归测试时， 都可以不需要人工按历史步骤测试。
+难点：
+测试项目与外部系统有网络请求交互，需要等待第三方网络请求异步结果
+测试项目需要依赖外部系统提供的网关页面， 需要在其网关页面里面做页面操作
+
+流程图：项目系统图：技术选型：语言：Python
+Python 框架: Flask
+
+Django: Python Web应用开发框架 …
+Diesel：基于Greenlet的事件I/O框架 …
+Flask：一个用Python编写的...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/06/10</span>
+                </div>
+                <!-- tags  -->
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="abstract-title" href = "/2019/03/25/Node-js通过-dubbo2-js-调用-java/" >
                 
                     <span>Node.js通过 dubbo2.js 调用 java</span>
@@ -413,16 +443,26 @@ RPC 也可以基于 HTTP 实...
             </a>
             <div class="abstract-content">
                 签章 Java 项目设计1 总体架构模块图1.1 抽象架构模块图
-2 技术方案框架 ： 使用 Spring Boot
-2.1. Controller 层内部服务： RPC
-Spring Cloud 
+2 业务流程
+CA申请实名过程
 
 
-作者：网易云
-链接：https://www.zhihu.com/question/45413135/answer/226794957
-来源：知乎
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-虽然Dubbo 支持短连接大数据量的服务提供模式，但绝大多数情况下都是使用长连接小数据量的模式提供服务使用的。所以，对于类似于电商等同步调用场景多并且能支撑搭建Dubbo 这...
+合同签署过程
+
+
+
+3 业务逻辑
+根据 Model 划分业务
+划分 Order， Contract， Ca， Transaction 和 Log 模块
+Bussiness 作为业务模块， 业务逻辑 组合调用  Order， Contract， Ca， Transaction 和 Log 模块内容
+技术选型
+
+后端框架： Spring Boot
+业务数据库： Mongo
+缓存： Redis
+持久层: MongoRepository
+消息队列：RabbitMq
+文档生成工具：Swagger2...
             </div>
             <div class="abstract-post-meta">
                 <!-- date  -->
@@ -959,7 +999,8 @@ Spring Cloud
     
     
     
-    <div class="total-archive"> Total : 28 </div>
+    
+    <div class="total-archive"> Total : 29 </div>
     
     <div class="post-archive">
     
@@ -968,6 +1009,11 @@ Spring Cloud
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/2019/06/10/AutoTestByPython/" >[Untitled Post]</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1035,6 +1081,11 @@ Spring Cloud
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-669. Coin Change/" >LintCode- 669. Coin ChangeFollow</a>
         </li>
     
@@ -1050,17 +1101,12 @@ Spring Cloud
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-440. Backpack IIIFollow/" >LintCode-440. Backpack IIIFollow</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode - Backpack IIFollow/" >LinCode - Backpack IIFollow</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-440. Backpack IIIFollow/" >LintCode-440. Backpack IIIFollow</a>
         </li>
     
     
@@ -1127,17 +1173,17 @@ Spring Cloud
     
         <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
     
-        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
-    
         <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
-    
-        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
         <span class="sidebar-tag-name" data-tags="Node.js RPC"><span class="iconfont-archer">&#xe606;</span>Node.js RPC</span>
     
-        <span class="sidebar-tag-name" data-tags="LintCode"><span class="iconfont-archer">&#xe606;</span>LintCode</span>
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
         <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="LintCode"><span class="iconfont-archer">&#xe606;</span>LintCode</span>
     
         <span class="sidebar-tag-name" data-tags="Node.js dubbo"><span class="iconfont-archer">&#xe606;</span>Node.js dubbo</span>
     
@@ -1147,11 +1193,11 @@ Spring Cloud
     
         <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
+        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
+    
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
-    
-        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
