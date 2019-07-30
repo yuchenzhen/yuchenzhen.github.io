@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>White&#39;s Studio</title>
+    <title>Java项目设计思路 · White&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -331,45 +331,83 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/05/17/hexo摘要/" >
-                
-                    <span>hexo摘要</span>
-            </a>
-            <div class="abstract-content">
-                hexo摘要
-使用 hexo 默认在 github 上布置主页先用默认的主题，这里看下官网教程就好 https://hexo.io/docs/setup.html
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="签章-Java-项目设计"><a href="#签章-Java-项目设计" class="headerlink" title="签章 Java 项目设计"></a>签章 Java 项目设计</h2><h2 id="1-总体架构模块图"><a href="#1-总体架构模块图" class="headerlink" title="1 总体架构模块图"></a>1 总体架构模块图</h2><h4 id="1-1-抽象架构模块图"><a href="#1-1-抽象架构模块图" class="headerlink" title="1.1 抽象架构模块图"></a>1.1 抽象架构模块图</h4><p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g0gg6ik424j20s00bfdgc.jpg" alt=""></p>
+<h2 id="2-业务流程"><a href="#2-业务流程" class="headerlink" title="2 业务流程"></a>2 业务流程</h2><ol>
+<li><p>CA申请实名过程</p>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g23phisvhnj20be16m778.jpg" alt=""></p>
+</li>
+<li><p>合同签署过程</p>
+</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g23ptw9ol1j20v60ymq6w.jpg" alt=""></p>
+<h2 id="3-业务逻辑"><a href="#3-业务逻辑" class="headerlink" title="3 业务逻辑"></a>3 业务逻辑</h2><p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g23p8ih2x4j20re14mtgh.jpg" alt=""></p>
+<p>根据 Model 划分业务</p>
+<p>划分 Order， Contract， Ca， Transaction 和 Log 模块</p>
+<p>Bussiness 作为业务模块， 业务逻辑 组合调用  Order， Contract， Ca， Transaction 和 Log 模块内容</p>
+<p>技术选型</p>
+<ul>
+<li>后端框架： Spring Boot</li>
+<li>业务数据库： Mongo</li>
+<li>缓存： Redis</li>
+<li>持久层: MongoRepository</li>
+<li>消息队列：RabbitMq</li>
+<li>文档生成工具：Swagger2</li>
+<li>日志组件：slf4j </li>
+<li>Java 实用工具： Lombok</li>
+<li>测试框架：JUnit5， MockMvc</li>
+<li>其他：<ul>
+<li>日志记录：Spring AOP</li>
+</ul>
+</li>
+</ul>
+<p>初步目录结构：</p>
+<p>  signature<br>  ├─<br>  ├── Ca<br>  ├── ├── Ca.java<br>  ├── ├── CaRepository.java<br>  ├── ├── CaService.java                                        —- 单独注册 Ca 证书接口  1. 注册接口， 2. 个人实名接口， 3. 企业实名接口 4. 实名认证接口  5. 盖章上传接口<br>  ├── ├── CaServiceImp.java                                     —- 单独注册 Ca 证书接口实现<br>  ├── Contract<br>  ├── ├── Contract.java<br>  ├── ├── ContractRepository.java<br>  ├── ├── ContractService.java                                  —- 1. 合同模板上传接口   2. 合同模板 id 查询接口<br>  ├── ├── ContractServiceImp.java                               —- 1. 合同模板上传接口实现<br>  ├── Log<br>  ├── ├── Log.java<br>  ├── ├── LogInterceptor.java                  —- AOP插入Controller<br>  ├── ├── LogRepository.java<br>  ├── Order<br>  ├── ├── Order.java<br>  ├── ├── OrderRepository.java<br>  ├── ├── OrderService.java                                     —- 订单记录接口 1. 创建接口  2. 订单完成接口 3. 订单失败接口 4.订单查询接口<br>  ├── ├── OrderServiceImp.java                                  —- 订单记录接口实现<br>  ├── Transaction<br>  ├── ├── Transaction.java<br>  ├── ├── TransactionRepository.java<br>  ├── ├── TransactionService.java                               —- 合同单次签署接口    1. 发起签署接口    2. 接收回调处理接口<br>  ├── ├── TransactionServiceImp.java                            —- 合同单次签署接口实现</p>
+<p>  ├── config<br>  ├── ├── MyWebAppConfigurer.java</p>
+<p>  ├── Signature                                                 —- 具体业务层<br>  ├── ├── SignController.java                                   —- 1. 个人注册暴露接口  </p>
+<pre><code>2. 企业注册暴露接口 
+3. 合同模板建立接口  
+4. 获取合同模板id接口  
+5. 模板生产填充内容合同接口  
+6. 合同签署接口 
+7. 接收合同签署结果接口
+</code></pre><p>  ├── Proxy                                                     —- 第三方请求通信层<br>  ├── ├── FDDProxyService.java                                  —- 法大大通信层<br>  ├── ├── InfoProxyService.java                                 —- 对外异步通知通信层                                </p>
+<p>  ├── utils<br>  ├── ├── GetRequestJsonUtils.java<br>  ├── ├── MyHttpServletRequestWrapper.java</p>
+<p>  ├── SignatureApplication.java</p>
 
-branch 只有 master 才能更新 hexo 主页的博客
-
-123456# Deployment## Docs: https://hexo.io/docs/deployment.htmldeploy:  type: git  repo: git@github.com:yuchenzhen/yuchenzhen.github.io  branch: master
-
-修改 Hexo 主题
-
-希望修改 hexo 主题，只需...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/17</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
+    </article>
+    <!-- license  -->
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "hexo">hexo</a>
-    
-</div>
-                
-            </div>
-        </article>
+        <div class="license-wrapper">
+            <p>原文作者: <a href="http://yuchenzhen.github.io">White</a>
+            <p>原文链接: <a href="http://yuchenzhen.github.io/not_post/签章 Java 项目设计.html">http://yuchenzhen.github.io/not_post/签章 Java 项目设计.html</a>
+            <p>发表日期: <a href="http://yuchenzhen.github.io/not_post/签章 Java 项目设计.html">February 18th 2019, 10:23:35</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
