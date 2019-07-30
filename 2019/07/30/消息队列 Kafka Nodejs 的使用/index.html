@@ -415,7 +415,7 @@ height:50vh;
 <p>目前我们项目应用到的场景：</p>
 <p>目前我们使用RabbitMq， 主要使用点对点的消费模式。</p>
 <p>削峰 ， 异步：</p>
-<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g5gmujcbayj20qi07hgm9.jpg" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/6026faa6gy1g5hwjo38x2j20p807a754.jpg" alt=""></p>
 <p>我们这些场景如果用 <code>Kafka</code> 该如何实现?</p>
 <h3 id="2-Kafka"><a href="#2-Kafka" class="headerlink" title="2. Kafka"></a>2. Kafka</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>官网的描述是这几句：</p>
 <blockquote>
@@ -485,7 +485,7 @@ height:50vh;
 <p>同分组消费者总个数： 2</p>
 <p><code>A = 1 / 2</code></p>
 <p><code>M = roundUp (A) = 1</code></p>
-<p><code>C0 = [P(0), P（0]</code> </p>
+<p><code>C0 = [P(0), P（0</code>]` </p>
 <p><code>C1 = [P(1), P(1)]</code></p>
 <p>所以，如果不是 C0 消费者不可用， C1 一直都不会去消费 Partition0 里面的消息</p>
 <p>结论是，如果非多 Kafka 节点的话， 单纯增加同一消费组里的消费者， 并不能做到均衡消费数据的情况。</p>
@@ -501,7 +501,8 @@ height:50vh;
 <p>延迟消费：不支持： Consumer 开启后， 会自动获取 Producer 生产对应 Topic 的消息， 若想 Consumer 暂时不消费消息， 需要中断 Consumer 的服务</p>
 <p>负载均衡：从集群上看， 即使其中一个 Broker 挂了，其他 Broker上的 partition 都会存在副本集，kafka 仍然可以正常运行。从 ConsumerGroup 上看，即使其中的Consumer 挂了， 同一 ConsumerGroup 的其他 Consumer 仍然可以消费其Topic 的消息，而不需要担心服务中断。</p>
 <p>实际上：Kafka 做点对点队列，有点浪费。只用一个 ConsumerGroup，并没有发挥 Kafka 的优势。但是 Kafka 这种很方便就能拓展成发布-订阅模式，消费端建立另外一个 ConsumerGroup，就可以为另一个服务启用。</p>
-<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://blog.csdn.net/tototuzuoquan/article/details/73441373" target="_blank" rel="noopener">https://blog.csdn.net/tototuzuoquan/article/details/73441373</a></p>
+<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>代码： <a href="https://github.com/yuchenzhen/node-kafka-demo" target="_blank" rel="noopener">https://github.com/yuchenzhen/node-kafka-demo</a></p>
+<p><a href="https://blog.csdn.net/tototuzuoquan/article/details/73441373" target="_blank" rel="noopener">https://blog.csdn.net/tototuzuoquan/article/details/73441373</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/58836260" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/58836260</a></p>
 <p><a href="https://juejin.im/post/5b59c6055188257bcc16738c" target="_blank" rel="noopener">https://juejin.im/post/5b59c6055188257bcc16738c</a></p>
 <p><a href="https://lotabout.me/2018/kafka-introduction/" target="_blank" rel="noopener">https://lotabout.me/2018/kafka-introduction/</a></p>
@@ -1045,32 +1046,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-archive"> Total : 29 </div>
     
     <div class="post-archive">
@@ -1152,17 +1127,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/Array.sort涉及的算法运用/" >Java的Array.sort涉及的算法运用</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode - Backpack IIFollow/" >LinCode - Backpack IIFollow</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/SpringBoot-IDE-initial/" >如何使用 Spring Boot 初始一个 webService 项目</a>
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-562.Backpack IVFollow/" >Lintcode- 562.Backpack IVFollow</a>
         </li>
     
     
@@ -1172,12 +1137,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode - Backpack IIFollow/" >LinCode - Backpack IIFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-562.Backpack IVFollow/" >Lintcode- 562.Backpack IVFollow</a>
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/Array.sort涉及的算法运用/" >Java的Array.sort涉及的算法运用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/SpringBoot-IDE-initial/" >如何使用 Spring Boot 初始一个 webService 项目</a>
         </li>
     
     
@@ -1248,13 +1223,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
-        <span class="sidebar-tag-name" data-tags="Node.js RPC"><span class="iconfont-archer">&#xe606;</span>Node.js RPC</span>
+        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
     
         <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
     
-        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
+        <span class="sidebar-tag-name" data-tags="Node.js RPC"><span class="iconfont-archer">&#xe606;</span>Node.js RPC</span>
     
-        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
     
         <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
     
@@ -1264,15 +1239,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Java Spring-boot"><span class="iconfont-archer">&#xe606;</span>Java Spring-boot</span>
     
-        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
-    
         <span class="sidebar-tag-name" data-tags="electron"><span class="iconfont-archer">&#xe606;</span>electron</span>
     
-        <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
     
         <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
     
         <span class="sidebar-tag-name" data-tags="消息队列"><span class="iconfont-archer">&#xe606;</span>消息队列</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
