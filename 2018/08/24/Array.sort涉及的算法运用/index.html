@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="White">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="White">
+    <meta name="keywords" content="White 's blog | White">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Java的Array.sort涉及的算法运用 · White&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon-2.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >White&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Java的Array.sort涉及的算法运用</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>White's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg2.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Java的Array.sort涉及的算法运用
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/08/24</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Array-sort涉及的算法运用"><a href="#Array-sort涉及的算法运用" class="headerlink" title="Array.sort涉及的算法运用"></a>Array.sort涉及的算法运用</h1><h3 id="问题1："><a href="#问题1：" class="headerlink" title="问题1："></a>问题1：</h3><h4 id="Java的sort方法用到什么样的排序算法"><a href="#Java的sort方法用到什么样的排序算法" class="headerlink" title="Java的sort方法用到什么样的排序算法"></a>Java的sort方法用到什么样的排序算法</h4><p>1.归并排序（数组类型为object对象类型）</p>
+<p>2.快速排序 （数组类型为原型数据类型）</p>
+<p>辅助的其他几种排序 （数组长度小时）</p>
+<p>3.冒泡排序</p>
+<h3 id="问题2："><a href="#问题2：" class="headerlink" title="问题2："></a>问题2：</h3><h4 id="为什么需要用不同种算法结合？"><a href="#为什么需要用不同种算法结合？" class="headerlink" title="为什么需要用不同种算法结合？"></a>为什么需要用不同种算法结合？</h4><p>这个涉及到算法的两个复杂度</p>
+<ol>
+<li>时间复杂度——<strong>用来检验某个算法处理一定量的数据要花多长时间</strong></li>
+<li>空间复杂度——<strong>对一个算法在运行过程中临时占用存储空间大小的量度</strong></li>
+</ol>
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><ul>
+<li><p><strong>拆分阶段，将序列分为更小的序列</strong></p>
+</li>
+<li><p><strong>排序阶段，把小的序列合在一起（使用合并算法）来构成更大的序列</strong></p>
+<p><img src="https://lh5.googleusercontent.com/qDU5Y3lcKlmQqF3TCDKvJIa1W3nc5pLL0zcFPEVeZEmRraWU3hTkBgcDPq1Z14OB7kvMFHtWgnHc1C1xFFySwVoKmIYwc1ynONKgvHWxlMkdLwpdFAn0C7-8ScoXkVAOrpOLymB_JRQ" alt="img"></p>
+</li>
+</ul>
+<p><img src="https://lh4.googleusercontent.com/gAvqtsXDEAiRVosEFoGMVGypcqlYcaoAqN9_tqNk7_X-YtUQ3EDo08ZN6X4F84ZQUP7QKtRN79qiO9b7tMAFsrhjDM1Ts374fTviZOO29poLX3AeZ3R0RazS5hjK-BRzSGcV1Uj62-w" alt="img"></p>
+<p>代码链接：</p>
+<h5 id="优点：它的时间复杂度为O-nlogn-，同时是一种稳定性排序，也就是相等的元素在序列中的相对位置在排序前后不会发生变化"><a href="#优点：它的时间复杂度为O-nlogn-，同时是一种稳定性排序，也就是相等的元素在序列中的相对位置在排序前后不会发生变化" class="headerlink" title="优点：它的时间复杂度为O(nlogn)，同时是一种稳定性排序，也就是相等的元素在序列中的相对位置在排序前后不会发生变化"></a>优点：它的时间复杂度为O(nlogn)，同时是一种稳定性排序，也就是相等的元素在序列中的相对位置在排序前后不会发生变化</h5><h5 id="缺点：需要利用额外的n的空间来进行排序。"><a href="#缺点：需要利用额外的n的空间来进行排序。" class="headerlink" title="缺点：需要利用额外的n的空间来进行排序。"></a>缺点：需要利用额外的n的空间来进行排序。</h5><h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>把数组根据一个参照值划分为两部分,左边部分小于等于参照值,右边部分大于等于参照值,然后再不断递归调用该方法,直到数组只有一个元素,就认为其是有序的.注意:划分过程,左边部分和右边部分可以是不均衡的</p>
+<p>参考文献链接：<a href="https://blog.csdn.net/vayne_xiao/article/details/53508973" target="_blank" rel="noopener">https://blog.csdn.net/vayne_xiao/article/details/53508973</a></p>
+<p>代码链接：<a href="https://blog.csdn.net/m0_38082440/article/details/81125156" target="_blank" rel="noopener">https://blog.csdn.net/m0_38082440/article/details/81125156</a></p>
+<h5 id="优点：一般时间复杂度为nOlog-n-不需要太多额外的空间"><a href="#优点：一般时间复杂度为nOlog-n-不需要太多额外的空间" class="headerlink" title="优点：一般时间复杂度为nOlog(n),不需要太多额外的空间"></a>优点：一般时间复杂度为nOlog(n),不需要太多额外的空间</h5><h5 id="缺点：不稳定，且复杂度在最坏的场景会为Olog-n-2"><a href="#缺点：不稳定，且复杂度在最坏的场景会为Olog-n-2" class="headerlink" title="缺点：不稳定，且复杂度在最坏的场景会为Olog(n^2)"></a>缺点：不稳定，且复杂度在最坏的场景会为Olog(n^2)</h5><p>附：Java 的 Arrays.sort方法源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArraysPrimitive</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">ArraysPrimitive</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对指定的 int 型数组按数字升序进行排序。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</span><br><span class="line">        sort1(a, <span class="number">0</span>, a.length);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对指定 int 型数组的指定范围按数字升序进行排序。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex)</span> </span>&#123;</span><br><span class="line">        rangeCheck(a.length, fromIndex, toIndex);</span><br><span class="line">        sort1(a, fromIndex, toIndex - fromIndex);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort1</span><span class="params">(<span class="keyword">int</span> x[], <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 当待排序的数组中的元素个数小于 7 时，采用插入排序 。</span></span><br><span class="line"><span class="comment">         * </span></span><br><span class="line"><span class="comment">         * 尽管插入排序的时间复杂度为O(n^2),但是当数组元素较少时， 插入排序优于快速排序，因为这时快速排序的递归操作影响性能。</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">if</span> (len &lt; <span class="number">7</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = off; i &lt; len + off; i++)</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; off &amp;&amp; x[j - <span class="number">1</span>] &gt; x[j]; j--)</span><br><span class="line">                    swap(x, j, j - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 当待排序的数组中的元素个数大于 或等于7 时，采用快速排序 。</span></span><br><span class="line"><span class="comment">         * </span></span><br><span class="line"><span class="comment">         * Choose a partition element, v</span></span><br><span class="line"><span class="comment">         * 选取一个划分元，V</span></span><br><span class="line"><span class="comment">         * </span></span><br><span class="line"><span class="comment">         * 较好的选择了划分元(基准元素)。能够将数组分成大致两个相等的部分，避免出现最坏的情况。例如当数组有序的的情况下，</span></span><br><span class="line"><span class="comment">         * 选择第一个元素作为划分元，将使得算法的时间复杂度达到O(n^2).</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// 当数组大小为size=7时 ，取数组中间元素作为划分元。</span></span><br><span class="line">        <span class="keyword">int</span> m = off + (len &gt;&gt; <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 当数组大小 7&lt;size&lt;=40时，取首、中、末 三个元素中间大小的元素作为划分元。</span></span><br><span class="line">        <span class="keyword">if</span> (len &gt; <span class="number">7</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> l = off;</span><br><span class="line">            <span class="keyword">int</span> n = off + len - <span class="number">1</span>;</span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">             * 当数组大小  size&gt;40 时 ，从待排数组中较均匀的选择9个元素，</span></span><br><span class="line"><span class="comment">             * 选出一个伪中数做为划分元。</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="keyword">if</span> (len &gt; <span class="number">40</span>) &#123;</span><br><span class="line">                <span class="keyword">int</span> s = len / <span class="number">8</span>;</span><br><span class="line">                l = med3(x, l, l + s, l + <span class="number">2</span> * s);</span><br><span class="line">                m = med3(x, m - s, m, m + s);</span><br><span class="line">                n = med3(x, n - <span class="number">2</span> * s, n - s, n);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 取出中间大小的元素的位置。</span></span><br><span class="line">            m = med3(x, l, m, n); <span class="comment">// Mid-size, med of 3</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//得到划分元V</span></span><br><span class="line">        <span class="keyword">int</span> v = x[m];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Establish Invariant: v* (&lt;v)* (&gt;v)* v*</span></span><br><span class="line">        <span class="keyword">int</span> a = off, b = a, c = off + len - <span class="number">1</span>, d = c;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span> (b &lt;= c &amp;&amp; x[b] &lt;= v) &#123;</span><br><span class="line">                <span class="keyword">if</span> (x[b] == v)</span><br><span class="line">                    swap(x, a++, b);</span><br><span class="line">                b++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (c &gt;= b &amp;&amp; x[c] &gt;= v) &#123;</span><br><span class="line">                <span class="keyword">if</span> (x[c] == v)</span><br><span class="line">                    swap(x, c, d--);</span><br><span class="line">                c--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (b &gt; c)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            swap(x, b++, c--);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Swap partition elements back to middle</span></span><br><span class="line">        <span class="keyword">int</span> s, n = off + len;</span><br><span class="line">        s = Math.min(a - off, b - a);</span><br><span class="line">        vecswap(x, off, b - s, s);</span><br><span class="line">        s = Math.min(d - c, n - d - <span class="number">1</span>);</span><br><span class="line">        vecswap(x, b, n - s, s);</span><br><span class="line">        <span class="comment">// Recursively sort non-partition-elements</span></span><br><span class="line">        <span class="keyword">if</span> ((s = b - a) &gt; <span class="number">1</span>)</span><br><span class="line">            sort1(x, off, s);</span><br><span class="line">        <span class="keyword">if</span> ((s = d - c) &gt; <span class="number">1</span>)</span><br><span class="line">            sort1(x, n - s, s);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Swaps x[a] with x[b].</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> x[], <span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> t = x[a];</span><br><span class="line">        x[a] = x[b];</span><br><span class="line">        x[b] = t;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Swaps x[a .. (a+n-1)] with x[b .. (b+n-1)].</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">vecswap</span><span class="params">(<span class="keyword">int</span> x[], <span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++, a++, b++)</span><br><span class="line">        swap(x, a, b);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the index of the median of the three indexed integers.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">med3</span><span class="params">(<span class="keyword">int</span> x[], <span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (x[a] &lt; x[b] ? (x[b] &lt; x[c] ? b : x[a] &lt; x[c] ? c : a)</span><br><span class="line">                : (x[b] &gt; x[c] ? b : x[a] &gt; x[c] ? c : a));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Check that fromIndex and toIndex are in range, and throw an</span></span><br><span class="line"><span class="comment">     * appropriate exception if they aren't.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">rangeCheck</span><span class="params">(<span class="keyword">int</span> arrayLen, <span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (fromIndex &gt; toIndex)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"fromIndex("</span> + fromIndex</span><br><span class="line">                    + <span class="string">") &gt; toIndex("</span> + toIndex + <span class="string">")"</span>);</span><br><span class="line">        <span class="keyword">if</span> (fromIndex &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArrayIndexOutOfBoundsException(fromIndex);</span><br><span class="line">        <span class="keyword">if</span> (toIndex &gt; arrayLen)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArrayIndexOutOfBoundsException(toIndex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="http://yuchenzhen.github.io">White</a>
+            <p>原文链接: <a href="http://yuchenzhen.github.io/2018/08/24/Array.sort涉及的算法运用/">http://yuchenzhen.github.io/2018/08/24/Array.sort涉及的算法运用/</a>
+            <p>发表日期: <a href="http://yuchenzhen.github.io/2018/08/24/Array.sort涉及的算法运用/">August 24th 2018, 1:22:18</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/08/24/SpringBoot-IDE-initial/" title= 如何使用 Spring Boot 初始一个 webService 项目 >
+                    <div class="nextTitle">如何使用 Spring Boot 初始一个 webService 项目</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/08/24/LintCode - Backpack IIFollow/" title= LinCode - Backpack IIFollow >
+                    <div class="prevTitle">LinCode - Backpack IIFollow</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:hjxx066121@126.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/yuchenzhen" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/WechatIMG11.jpeg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Array-sort涉及的算法运用"><span class="toc-number">1.</span> <span class="toc-text">Array.sort涉及的算法运用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题1："><span class="toc-number">1.0.1.</span> <span class="toc-text">问题1：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java的sort方法用到什么样的排序算法"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">Java的sort方法用到什么样的排序算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题2："><span class="toc-number">1.0.2.</span> <span class="toc-text">问题2：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要用不同种算法结合？"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">为什么需要用不同种算法结合？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#归并排序"><span class="toc-number">1.0.3.</span> <span class="toc-text">归并排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#优点：它的时间复杂度为O-nlogn-，同时是一种稳定性排序，也就是相等的元素在序列中的相对位置在排序前后不会发生变化"><span class="toc-number">1.0.3.0.1.</span> <span class="toc-text">优点：它的时间复杂度为O(nlogn)，同时是一种稳定性排序，也就是相等的元素在序列中的相对位置在排序前后不会发生变化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#缺点：需要利用额外的n的空间来进行排序。"><span class="toc-number">1.0.3.0.2.</span> <span class="toc-text">缺点：需要利用额外的n的空间来进行排序。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速排序"><span class="toc-number">1.0.4.</span> <span class="toc-text">快速排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#优点：一般时间复杂度为nOlog-n-不需要太多额外的空间"><span class="toc-number">1.0.4.0.1.</span> <span class="toc-text">优点：一般时间复杂度为nOlog(n),不需要太多额外的空间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#缺点：不稳定，且复杂度在最坏的场景会为Olog-n-2"><span class="toc-number">1.0.4.0.2.</span> <span class="toc-text">缺点：不稳定，且复杂度在最坏的场景会为Olog(n^2)</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 30 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2019/07/30/消息队列 Kafka Nodejs 的使用/" >消息队列 Kafka Nodejs 的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/18</span><a class="archive-post-title" href= "/2019/04/18/AutoTestByPython/" >Auto Test By Python</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href= "/2019/03/25/Node-js通过-dubbo2-js-调用-java/" >Node.js通过 dubbo2.js 调用 java</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span><a class="archive-post-title" href= "/2019/02/20/Eggjs使用sofa-rpc-node/" >Eggjs使用sofa-rpc-node</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/2019/02/18/签章 Java 项目设计/" >Java项目设计思路</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/Algorithm-Dynamic-Programming/" >Algorithm Dynamic Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/15</span><a class="archive-post-title" href= "/2018/10/15/红黑树学习笔记/" >红黑树学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/28</span><a class="archive-post-title" href= "/2018/09/28/找不出合格品/" >找出不合格品</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/2018/09/23/Leetcode-46-全排列/" >Leetcode-46.全排列</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/17</span><a class="archive-post-title" href= "/2018/09/17/Leetcode-23.合并k个排序链表/" >Leetcode-23.合并k个排序链表</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/12</span><a class="archive-post-title" href= "/2018/09/12/Leetcode-89.格雷编码/" >Leetcode-89.格雷编码</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/07</span><a class="archive-post-title" href= "/2018/09/07/Data-Struct-Learning-Binary-Tree/" >Data Struct Learning-二叉树</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-562.Backpack IVFollow/" >Lintcode- 562.Backpack IVFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-440. Backpack IIIFollow/" >LintCode-440. Backpack IIIFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/Array.sort涉及的算法运用/" >Java的Array.sort涉及的算法运用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/SpringBoot-IDE-initial/" >如何使用 Spring Boot 初始一个 webService 项目</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-91. Minimum Adjustment Cost/" >LintCode-91. Minimum Adjustment Cost</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode-669. Coin Change/" >LintCode- 669. Coin ChangeFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/24</span><a class="archive-post-title" href= "/2018/08/24/LintCode - Backpack IIFollow/" >LinCode - Backpack IIFollow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2018/08/09/Leetcode-亲密字符串/" >Leetcode-亲密字符串</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/Leetcode-二进制间距/" >Leetcode-二进制间距</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/simplifyPath/" >unix简化路径</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2018/07/25/A-vue-upload-component-info/" >A vue upload component info</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href= "/2018/07/24/electron-new/" >Electron-Learning 建立一个简单的 electron 桌面应用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span><a class="archive-post-title" href= "/2018/07/14/Leetcode-二进制求和/" >Leetcode-二进制求和</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span><a class="archive-post-title" href= "/2018/07/14/Leetcode-一字节二字节判断/" >Leetcode-一字节二字节判断</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/2018/06/08/Data-Struct-Learning/" >Data Struct Learning-线性数据结构</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/2018/05/17/hexo摘要/" >hexo摘要</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/Git区分项目使用/" >Git区分项目使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Binary_Tree"><span class="iconfont-archer">&#xe606;</span>Binary_Tree</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="List"><span class="iconfont-archer">&#xe606;</span>List</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Node.js RPC"><span class="iconfont-archer">&#xe606;</span>Node.js RPC</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leedcode"><span class="iconfont-archer">&#xe606;</span>Leedcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="LintCode"><span class="iconfont-archer">&#xe606;</span>LintCode</span>
+    
+        <span class="sidebar-tag-name" data-tags="Node.js dubbo"><span class="iconfont-archer">&#xe606;</span>Node.js dubbo</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java Spring-boot"><span class="iconfont-archer">&#xe606;</span>Java Spring-boot</span>
+    
+        <span class="sidebar-tag-name" data-tags="electron"><span class="iconfont-archer">&#xe606;</span>electron</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="消息队列"><span class="iconfont-archer">&#xe606;</span>消息队列</span>
+    
+        <span class="sidebar-tag-name" data-tags="脑洞题"><span class="iconfont-archer">&#xe606;</span>脑洞题</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构，二叉树"><span class="iconfont-archer">&#xe606;</span>数据结构，二叉树</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'White'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
